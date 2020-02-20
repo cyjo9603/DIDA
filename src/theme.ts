@@ -14,6 +14,8 @@ export interface ITheme {
   notifyMessage_01: string;
   notifyMessage_02: string;
   errorMessage: string;
+
+  buttonBackground: string;
 }
 
 export default theme;
