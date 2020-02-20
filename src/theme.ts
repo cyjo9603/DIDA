@@ -6,6 +6,13 @@ const theme = {
   errorMessage: '#ff6679',
 
   buttonBackground: '#203f9b',
+
+  Font: {
+    EB: 'NanumSquareEB',
+    B: 'NanumSquareB',
+    R: 'NanumSquareR',
+    L: 'NanumSquareL',
+  },
 };
 
 export interface ITheme {
@@ -16,6 +23,13 @@ export interface ITheme {
   errorMessage: string;
 
   buttonBackground: string;
+
+  Font: {
+    EB: string;
+    B: string;
+    R: string;
+    L: string;
+  };
 }
 
 export default theme;
