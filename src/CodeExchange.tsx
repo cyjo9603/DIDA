@@ -13,7 +13,10 @@ const CodeExchange = () => {
       <ItemComtainer>
         <Message>상대방과의{`\n`}코드 연결이 필요해요 :)</Message>
         <MyCode>나의 코드</MyCode>
-        <CodeValue>A16382</CodeValue>
+        <LineContainer>
+          <Line lineColor="#ffe6e9" width="160" weight="13.3333" />
+          <CodeValue>A16382</CodeValue>
+        </LineContainer>
         <InputCode placeholder="상대방 코드 입력"></InputCode>
         <ErrorMessage showing={showingError}>
           * 코드를 확인해주세요 *
@@ -23,7 +26,10 @@ const CodeExchange = () => {
         </PleaseMessage>
       </ItemComtainer>
       <ItemComtainer>
-        <BottomMessage>기존에 사용하던 코드가 있어요!</BottomMessage>
+        <LineContainer marginBottom="39.3333">
+          <Line lineColor="#f1f3f5" width="260.6666" weight="9.3333" />
+          <BottomMessage>기존에 사용하던 코드가 있어요!</BottomMessage>
+        </LineContainer>
         <BottomButton />
       </ItemComtainer>
     </Container>
@@ -32,8 +38,8 @@ const CodeExchange = () => {
 
 const Container = styled.View`
   background-color: #fff;
-  justify-content: space-between;
   flex: 1;
+  justify-content: space-between;
 `;
 
 const ItemComtainer = styled.View`
@@ -62,10 +68,12 @@ const CodeValue = styled.Text<{theme: ITheme}>`
 `;
 
 const InputCode = styled.TextInput<{theme: ITheme}>`
+  font-family: ${props => props.theme.Font.B};
   width: 372px;
   height: 85.3333px;
   border-radius: 42.6666px;
   border: solid 1.866px ${props => props.theme.inputBorder};
+  color: ${props => props.theme.mainText};
   font-size: 20px;
   text-align: center;
   margin-top: 49.3333px;
@@ -89,7 +97,24 @@ const BottomMessage = styled.Text<{theme: ITheme}>`
   font-family: ${props => props.theme.Font.R};
   color: ${props => props.theme.notifyMessage_01};
   font-size: 20px;
-  margin-bottom: 49.3333px;
+`;
+
+const LineContainer = styled.View<{marginBottom?: string}>`
+  align-items: center;
+  margin-bottom: ${props => (props.marginBottom ? props.marginBottom : '0')}px;
+`;
+
+const Line = styled.View<{
+  lineColor: string;
+  width: string;
+  weight: string;
+  position?: string;
+}>`
+  position: absolute;
+  width: ${props => props.width}px;
+  height: ${props => props.weight}px;
+  background-color: ${props => props.lineColor};
+  bottom: 3.3333px;
 `;
 
 export default CodeExchange;
