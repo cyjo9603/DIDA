@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
@@ -8,16 +8,21 @@ import Message from './component/Message';
 import BottomButton from './component/BottomButton';
 
 const SelectColor = () => {
+  const [color, setColor] = useState('n1');
+
   return (
     <>
       <Container>
         <Message>환영합니다!{'\n'}당신의 '색상'을 골라주세요 :)</Message>
-        <CurrentColor />
+        <CurrentColor select={color} />
         <Palette>
           {Array(8)
             .fill(null)
             .map((v, i) => (
-              <ColorContainer onPress={() => {}}>
+              <ColorContainer
+                onPress={() => {
+                  setColor(`n${i + 1}`);
+                }}>
                 <ColorItem colorIndex={`n${i + 1}`} />
               </ColorContainer>
             ))}
@@ -40,11 +45,11 @@ const MessageColor = styled(Message)`
   margin-top: 76px;
 `;
 
-const CurrentColor = styled.View<{theme: ITheme}>`
+const CurrentColor = styled.View<{theme: ITheme; select: string}>`
   width: 254.6666px;
   height: 254.6666px;
   border-radius: 127.3333px
-  background-color: ${props => props.theme.Color.n1};
+  background-color: ${(props: any) => props.theme.Color[props.select]};
   margin-top: 60px
 `;
 
