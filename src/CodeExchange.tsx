@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import {ITheme} from './theme';
 
 import BottomButton from './component/BottomButton';
+import LineContainer, {Line} from './component/LineContainer';
 
 const CodeExchange = () => {
   const showingError = true;
@@ -97,24 +98,6 @@ const BottomMessage = styled.Text<{theme: ITheme}>`
   font-family: ${props => props.theme.Font.R};
   color: ${props => props.theme.notifyMessage_01};
   font-size: 20px;
-`;
-
-const LineContainer = styled.View<{marginBottom?: string}>`
-  align-items: center;
-  margin-bottom: ${props => (props.marginBottom ? props.marginBottom : '0')}px;
-`;
-
-const Line = styled.View<{
-  lineColor: string;
-  width: string;
-  weight: string;
-  position?: string;
-}>`
-  position: absolute;
-  width: ${props => props.width}px;
-  height: ${props => props.weight}px;
-  background-color: ${props => props.lineColor};
-  bottom: 3.3333px;
 `;
 
 export default CodeExchange;
