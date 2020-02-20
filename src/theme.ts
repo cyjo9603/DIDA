@@ -36,14 +36,14 @@ export interface ITheme {
   buttonBackground: string;
 
   Color: {
-    n1: '#ffdd0a';
-    n2: '#a9186d';
-    n3: '#34524f';
-    n4: '#274b90';
-    n5: '#c85b52';
-    n6: '#438ca9';
-    n7: '#fd9364';
-    n8: '#8971b3';
+    n1: string;
+    n2: string;
+    n3: string;
+    n4: string;
+    n5: string;
+    n6: string;
+    n7: string;
+    n8: string;
   };
 
   Font: {
