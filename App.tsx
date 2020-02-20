@@ -14,8 +14,8 @@ const App = () => {
       <StatusBar backgroundColor="white" barStyle="dark-content"></StatusBar>
       <ThemeProvider theme={theme}>
         {/* <CodeExchange /> */}
-        {/* <SelectDate /> */}
-        <SelectColor />
+        <SelectDate />
+        {/* <SelectColor /> */}
       </ThemeProvider>
     </>
   );
