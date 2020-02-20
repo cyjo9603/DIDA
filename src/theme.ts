@@ -1,11 +1,13 @@
 const theme = {
   mainText: '#111111',
   inputBorder: '#adb5bd',
+  dateBorder: '#f1f3f5',
   notifyMessage_01: '#868e96',
   notifyMessage_02: '#ced4da',
   errorMessage: '#ff6679',
 
   buttonBackground: '#203f9b',
+  dateBackground: '#f8f9fa',
 
   Color: {
     n1: '#ffdd0a',
@@ -29,11 +31,13 @@ const theme = {
 export interface ITheme {
   mainText: string;
   inputBorder: string;
+  dateBorder: string;
   notifyMessage_01: string;
   notifyMessage_02: string;
   errorMessage: string;
 
   buttonBackground: string;
+  dateBackground: string;
 
   Color: {
     n1: string;
