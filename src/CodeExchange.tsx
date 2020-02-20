@@ -6,6 +6,7 @@ import {ITheme} from './theme';
 
 import BottomButton from './component/BottomButton';
 import LineContainer, {Line} from './component/LineContainer';
+import Message from './component/Message';
 
 const CodeExchange = () => {
   const showingError = true;
@@ -45,15 +46,6 @@ const Container = styled.View`
 
 const ItemComtainer = styled.View`
   align-items: center;
-`;
-
-const Message = styled.Text<{theme: ITheme}>`
-  font-family: ${props => props.theme.Font.B};
-  font-size: 24px;
-  line-height: 44px;
-  color: ${props => props.theme.mainText};
-  text-align: center;
-  margin-top: 56px;
 `;
 
 const MyCode = styled.Text<{theme: ITheme}>`
