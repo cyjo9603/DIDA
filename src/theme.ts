@@ -7,6 +7,17 @@ const theme = {
 
   buttonBackground: '#203f9b',
 
+  Color: {
+    n1: '#ffdd0a',
+    n2: '#a9186d',
+    n3: '#34524f',
+    n4: '#274b90',
+    n5: '#c85b52',
+    n6: '#438ca9',
+    n7: '#fd9364',
+    n8: '#8971b3',
+  },
+
   Font: {
     EB: 'NanumSquareEB',
     B: 'NanumSquareB',
@@ -23,6 +34,17 @@ export interface ITheme {
   errorMessage: string;
 
   buttonBackground: string;
+
+  Color: {
+    n1: '#ffdd0a';
+    n2: '#a9186d';
+    n3: '#34524f';
+    n4: '#274b90';
+    n5: '#c85b52';
+    n6: '#438ca9';
+    n7: '#fd9364';
+    n8: '#8971b3';
+  };
 
   Font: {
     EB: string;
