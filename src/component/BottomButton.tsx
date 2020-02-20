@@ -22,9 +22,9 @@ const MoveButton = styled.TouchableOpacity<{theme: ITheme}>`
   justify-content: center;
 `;
 
-const ButtonText = styled.Text`
+const ButtonText = styled.Text<{theme: ITheme}>`
+  font-family: ${props => props.theme.Font.EB};
   color: #fff;
-  font-weight: 700;
   font-size: 20px;
   text-align: center;
 `;

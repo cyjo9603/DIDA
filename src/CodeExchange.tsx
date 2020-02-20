@@ -40,24 +40,24 @@ const ItemComtainer = styled.View`
 `;
 
 const Message = styled.Text<{theme: ITheme}>`
+  font-family: ${props => props.theme.Font.B};
   font-size: 24px;
-  font-weight: 700;
   line-height: 44px;
   color: ${props => props.theme.mainText};
   text-align: center;
   margin-top: 56px;
 `;
 
-const MyCode = styled.Text`
+const MyCode = styled.Text<{theme: ITheme}>`
+  font-family: ${props => props.theme.Font.EB};
   font-size: 21.3333px;
   margin-top: 121.3333px;
   margin-bottom: 25.3333px;
-  font-weight: 700;
 `;
 
-const CodeValue = styled.Text`
+const CodeValue = styled.Text<{theme: ITheme}>`
+  font-family: ${props => props.theme.Font.EB};
   font-size: 40px;
-  font-weight: 700;
 `;
 
 const InputCode = styled.TextInput<{theme: ITheme}>`
@@ -72,17 +72,20 @@ const InputCode = styled.TextInput<{theme: ITheme}>`
 `;
 
 const ErrorMessage = styled.Text<{theme: ITheme; showing: boolean}>`
+  font-family: ${props => props.theme.Font.R};
   color: ${props => (props.showing ? props.theme.errorMessage : '#fff')};
   font-size: 18.6666px;
 `;
 
 const PleaseMessage = styled.Text<{theme: ITheme}>`
+  font-family: ${props => props.theme.Font.R};
   color: ${props => props.theme.notifyMessage_02};
   font-size: 18.6666px;
   margin-top: 18px;
 `;
 
 const BottomMessage = styled.Text<{theme: ITheme}>`
+  font-family: ${props => props.theme.Font.R};
   color: ${props => props.theme.notifyMessage_01};
   font-size: 20px;
   margin-bottom: 49.3333px;
