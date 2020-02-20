@@ -6,6 +6,7 @@ import {ITheme} from './theme';
 
 import BottomButton from './component/BottomButton';
 import LineContainer, {Line} from './component/LineContainer';
+import DateButton from './component/DateButton';
 
 const SelectDate = () => {
   const dayInnerText = 1;
@@ -21,10 +22,13 @@ const SelectDate = () => {
           <DayText>{`${dayInnerText}일`}</DayText>
           <Heart source={require('../image/drawable-xxxhdpi/icon_heart.png')} />
         </DayContainer>
+        <DateContainer>
+          <DateButton />
+        </DateContainer>
       </Container>
-      <BottomContainer>
+      <View>
         <BottomButton />
-      </BottomContainer>
+      </View>
     </>
   );
 };
@@ -32,15 +36,17 @@ const SelectDate = () => {
 const Container = styled.View`
   flex: 1;
   background-color: #fff;
+  align-items: center;
 `;
 
-const BottomContainer = styled.View``;
+const DateContainer = styled.View`
+  margin-top: 42.6666px;
+`;
 
 const Message = styled.Text<{theme: ITheme}>`
   font-family: ${props => props.theme.Font.EB};
   color: ${props => props.theme.mainText};
   font-size: 24px;
-  text-align: center;
   margin-top: 212px;
 `;
 
