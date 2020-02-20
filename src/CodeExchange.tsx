@@ -19,7 +19,7 @@ const CodeExchange = () => {
           * 코드를 확인해주세요 *
         </ErrorMessage>
         <PleaseMessage>
-          * 재연결을 위해 자신의 코드를 꼭 기억해주세요 :) *
+          * 재연결을 위해 자신의 코드를 꼭 기억해주세요 :)
         </PleaseMessage>
       </ItemComtainer>
       <ItemComtainer>
@@ -31,6 +31,7 @@ const CodeExchange = () => {
 };
 
 const Container = styled.View`
+  background-color: #fff;
   justify-content: space-between;
   flex: 1;
 `;
