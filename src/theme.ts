@@ -5,10 +5,13 @@ const theme = {
   dateBorder: '#f1f3f5',
   notifyMessage_01: '#868e96',
   notifyMessage_02: '#ced4da',
+  notifyMessage_03: '#495057',
   errorMessage: '#ff6679',
 
   buttonBackground: '#203f9b',
   dateBackground: '#f8f9fa',
+  blockYellow: '#ffdd0a',
+  blockBlue: '#4a90e2',
 
   Color: {
     n1: '#ffdd0a',
@@ -36,10 +39,13 @@ export interface ITheme {
   dateBorder: string;
   notifyMessage_01: string;
   notifyMessage_02: string;
+  notifyMessage_03: string;
   errorMessage: string;
 
   buttonBackground: string;
   dateBackground: string;
+  blockYellow: string;
+  blockBlue: string;
 
   Color: {
     n1: string;
