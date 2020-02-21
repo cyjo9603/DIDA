@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import {ITheme} from './theme';
 
 import Message from './component/Message';
+import CurrentColor from './component/CurrentColor';
 import BottomButton from './component/BottomButton';
 
 const SelectColor = () => {
@@ -14,7 +15,9 @@ const SelectColor = () => {
     <>
       <Container>
         <Message>환영합니다!{'\n'}당신의 '색상'을 골라주세요 :)</Message>
-        <CurrentColor select={color} />
+        <View style={{marginTop: 60}}>
+          <CurrentColor select={color} />
+        </View>
         <Palette>
           {Array(8)
             .fill(null)
@@ -43,14 +46,6 @@ const Container = styled.View`
 
 const MessageColor = styled(Message)`
   margin-top: 76px;
-`;
-
-const CurrentColor = styled.View<{theme: ITheme; select: string}>`
-  width: 254.6666px;
-  height: 254.6666px;
-  border-radius: 127.3333px
-  background-color: ${(props: any) => props.theme.Color[props.select]};
-  margin-top: 60px
 `;
 
 const Palette = styled.View`
