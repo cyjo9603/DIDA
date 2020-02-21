@@ -7,6 +7,7 @@ import theme from './src/theme';
 import CodeExchange from './src/CodeExchange';
 import SelectDate from './src/SelectDate';
 import SelectColor from './src/SelectColor';
+import Main from './src/Main';
 
 const App = () => {
   return (
@@ -14,8 +15,9 @@ const App = () => {
       <StatusBar backgroundColor="white" barStyle="dark-content"></StatusBar>
       <ThemeProvider theme={theme}>
         {/* <CodeExchange /> */}
-        <SelectDate />
+        {/* <SelectDate /> */}
         {/* <SelectColor /> */}
+        <Main />
       </ThemeProvider>
     </>
   );
