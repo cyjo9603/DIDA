@@ -8,6 +8,7 @@ import Header from './component/Header';
 import Container from './component/Container';
 import MainTabItem from './component/MainTabItem';
 import MainToday from './MainToday';
+import MainDiary from './MainDiary';
 
 const Main = () => {
   const [state, setState] = useState('TODAY');
@@ -21,7 +22,7 @@ const Main = () => {
         <MainTabItem title="TODAY" state={state} press={navTouch} />
         <MainTabItem title="DIARY" state={state} press={navTouch} />
       </Nav>
-      {state === 'TODAY' ? <MainToday /> : <></>}
+      {state === 'TODAY' ? <MainToday /> : <MainDiary />}
     </Container>
   );
 };
