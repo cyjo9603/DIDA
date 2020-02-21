@@ -7,11 +7,12 @@ import {ITheme} from '../theme';
 interface IProps {
   title: string;
   state: string;
+  press: (NavTitle: string) => void;
 }
 
-const MainTabItem: FunctionComponent<IProps> = ({title, state}) => {
+const MainTabItem: FunctionComponent<IProps> = ({title, state, press}) => {
   return (
-    <TouchContainer style={{alignItems: 'center'}}>
+    <TouchContainer style={{alignItems: 'center'}} onPress={() => press(title)}>
       <TabText clicked={title === state}>{title}</TabText>
       {title === state && <UnderLine />}
     </TouchContainer>
