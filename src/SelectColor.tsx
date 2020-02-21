@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 
 import {ITheme} from './theme';
 
+import Container from './component/Container';
 import Message from './component/Message';
 import CurrentColor from './component/CurrentColor';
 import BottomButton from './component/BottomButton';
@@ -37,12 +38,6 @@ const SelectColor = () => {
     </>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-  align-items: center;
-  background-color: #fff;
-`;
 
 const MessageColor = styled(Message)`
   margin-top: 76px;

@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 
 import {ITheme} from './theme';
 
+import Container from './component/Container';
 import BottomButton from './component/BottomButton';
 import LineContainer, {Line} from './component/LineContainer';
 import Message from './component/Message';
@@ -11,8 +12,8 @@ import Message from './component/Message';
 const CodeExchange = () => {
   const showingError = true;
   return (
-    <Container>
-      <ItemComtainer>
+    <>
+      <Container>
         <Message>상대방과의{`\n`}코드 연결이 필요해요 :)</Message>
         <MyCode>나의 코드</MyCode>
         <LineContainer>
@@ -26,7 +27,7 @@ const CodeExchange = () => {
         <PleaseMessage>
           * 재연결을 위해 자신의 코드를 꼭 기억해주세요 :)
         </PleaseMessage>
-      </ItemComtainer>
+      </Container>
       <ItemComtainer>
         <LineContainer marginBottom="39.3333">
           <Line lineColor="#f1f3f5" width="260.6666" weight="9.3333" />
@@ -34,15 +35,9 @@ const CodeExchange = () => {
         </LineContainer>
         <BottomButton />
       </ItemComtainer>
-    </Container>
+    </>
   );
 };
-
-const Container = styled.View`
-  background-color: #fff;
-  flex: 1;
-  justify-content: space-between;
-`;
 
 const ItemComtainer = styled.View`
   align-items: center;

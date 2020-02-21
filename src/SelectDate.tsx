@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 
 import {ITheme} from './theme';
 
+import Container from './component/Container';
 import BottomButton from './component/BottomButton';
 import LineContainer, {Line} from './component/LineContainer';
 import DateButton from './component/DateButton';
@@ -32,12 +33,6 @@ const SelectDate = () => {
     </>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-  background-color: #fff;
-  align-items: center;
-`;
 
 const DateContainer = styled.View`
   margin-top: 42.6666px;
