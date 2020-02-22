@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import styled from 'styled-components/native';
 
-import {ITheme} from './theme';
+import theme, {ITheme} from './theme';
 
 import Container from './component/Container';
 import Box from './commonComponent/Box';
@@ -10,8 +10,12 @@ import TextB from './commonComponent/TextComponent';
 import CurrentColor from './component/CurrentColor';
 import BottomButton from './component/BottomButton';
 
+type ColorKeys = keyof typeof theme.Color;
+
 const SelectColor = () => {
-  const [color, setColor] = useState('n1');
+  const [color, setColor] = useState<ColorKeys>('n1');
+
+  const getColor = (number: number) => `n${number + 1}` as ColorKeys;
 
   return (
     <>
@@ -34,7 +38,7 @@ const SelectColor = () => {
             .map((v, i) => (
               <ColorContainer
                 onPress={() => {
-                  setColor(`n${i + 1}`);
+                  setColor(getColor(i));
                 }}>
                 <ColorItem colorIndex={`n${i + 1}`} />
               </ColorContainer>

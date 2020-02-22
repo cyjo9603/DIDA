@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
+import theme, {ITheme} from '../theme';
+type ColorKeys = keyof typeof theme.Color;
 
-const CurrentColor = styled.View<{theme: ITheme; select: string}>`
+const CurrentColor = styled.View<{theme: ITheme; select: ColorKeys}>`
   width: 254.6666px;
   height: 254.6666px;
   border-radius: 127.3333px
-  background-color: ${(props: any) => props.theme.Color[props.select]};
+  background-color: ${props => props.theme.Color[props.select]};
   `;
 
 export default CurrentColor;

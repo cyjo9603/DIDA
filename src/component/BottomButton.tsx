@@ -1,8 +1,9 @@
 import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
 import styled from 'styled-components/native';
 
 import {ITheme} from '../theme';
+
+import TextEB from '../commonComponent/TextComponent';
 
 const BottomButton = () => {
   return (
@@ -10,7 +11,9 @@ const BottomButton = () => {
       onPress={() => {
         console.log('bottom');
       }}>
-      <ButtonText>다음</ButtonText>
+      <TextEB size={20} color="white">
+        다음
+      </TextEB>
     </MoveButton>
   );
 };
@@ -20,13 +23,7 @@ const MoveButton = styled.TouchableOpacity<{theme: ITheme}>`
   height: 66.5333px;
   background-color: ${props => props.theme.buttonBackground};
   justify-content: center;
-`;
-
-const ButtonText = styled.Text<{theme: ITheme}>`
-  font-family: ${props => props.theme.Font.EB};
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
+  align-items: center;
 `;
 
 export default BottomButton;

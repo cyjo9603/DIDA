@@ -1,8 +1,5 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
 import styled from 'styled-components/native';
-
-import {ITheme} from './theme';
 
 import DiaryItem from './component/DiaryItem';
 import BoundaryLine from './component/BoundaryLine';

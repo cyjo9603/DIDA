@@ -1,11 +1,9 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {Image} from 'react-native';
 import styled from 'styled-components/native';
 
-import {ITheme} from './theme';
-
 import Box from './commonComponent/Box';
-import TextB, {TextEB, TextR} from './commonComponent/TextComponent';
+import {TextEB} from './commonComponent/TextComponent';
 import CurrentColor from './component/CurrentColor';
 
 const MainToday = () => {

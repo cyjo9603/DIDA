@@ -1,8 +1,4 @@
-import React from 'react';
-import {View} from 'react-native';
 import styled from 'styled-components/native';
-
-import {ITheme} from '../theme';
 
 const LineContainer = styled.View<{marginBottom?: string}>`
   align-items: center;

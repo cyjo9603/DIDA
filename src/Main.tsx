@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-
-import {ITheme} from './theme';
 
 import Header from './component/Header';
 import Container from './component/Container';

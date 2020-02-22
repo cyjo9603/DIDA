@@ -1,8 +1,9 @@
 import React, {FunctionComponent} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
 import {ITheme} from '../theme';
+
+import {TextEB} from '../commonComponent/TextComponent';
 
 interface IProps {
   title: string;
@@ -13,7 +14,11 @@ interface IProps {
 const MainTabItem: FunctionComponent<IProps> = ({title, state, press}) => {
   return (
     <TouchContainer style={{alignItems: 'center'}} onPress={() => press(title)}>
-      <TabText clicked={title === state}>{title}</TabText>
+      <TextEB
+        size={21.3333}
+        color={title === state ? 'menuText' : 'notifyMessage_01'}>
+        {title}
+      </TextEB>
       {title === state && <UnderLine />}
     </TouchContainer>
   );
@@ -21,13 +26,6 @@ const MainTabItem: FunctionComponent<IProps> = ({title, state, press}) => {
 
 const TouchContainer = styled.TouchableOpacity`
   width: 88px;
-`;
-
-const TabText = styled.Text<{theme: ITheme; clicked: boolean}>`
-  color: ${props =>
-    props.clicked ? props.theme.menuText : props.theme.notifyMessage_01};
-  font-family: ${props => props.theme.Font.EB};
-  font-size: 21.3333px;
 `;
 
 const UnderLine = styled.View<{theme: ITheme}>`
