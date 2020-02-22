@@ -4,14 +4,20 @@ import styled from 'styled-components/native';
 
 import {ITheme} from '../theme';
 
+import Box from '../commonComponent/Box';
+import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
+
 const DiaryItem = () => {
   let test01 = 'yellow';
   let test02 = 'blue';
 
   return (
     <View>
+      {/* header */}
       <Top>
-        <DayValue>1459</DayValue>
+        <TextEB size={32} color="mainText">
+          1459
+        </TextEB>
         <TouchableOpacity>
           <Image
             source={require('../../image/drawable-xxxhdpi/bt_write.png')}
@@ -19,11 +25,21 @@ const DiaryItem = () => {
           />
         </TouchableOpacity>
       </Top>
-      <Section>
-        <DayText>days</DayText>
+
+      {/* contents */}
+      <Box marginBottom={36.6666}>
+        <Box marginLeft={2.6666} marginTop={2.6666} marginBottom={2.6666}>
+          <TextB size={17.3333} color="inputBorder">
+            days
+          </TextB>
+        </Box>
+
+        {/* line contents */}
         <LineContainer>
           <Block writer={test01} />
-          <LineText>오늘 같이 본 영화는 너무 재밌었어!</LineText>
+          <Contents size={20} color="notifyMessage_03">
+            오늘 같이 본 영화는 너무 재밌었어!
+          </Contents>
           <HeartOn
             source={require(`../../image/drawable-xxxhdpi/ic_heart_${
               test01 === 'yellow' ? '5' : '3'
@@ -32,14 +48,16 @@ const DiaryItem = () => {
         </LineContainer>
         <LineContainer>
           <Block writer={test02} />
-          <LineText>앞으론 겨울왕국 같은건 보지말자 ㅠ 노잼</LineText>
+          <Contents size={20} color="notifyMessage_03">
+            앞으론 겨울왕국 같은건 보지말자 ㅠ 노잼
+          </Contents>
           <HeartOn
             source={require(`../../image/drawable-xxxhdpi/ic_heart_${
               test02 === 'yellow' ? '5' : '3'
             }_on.png`)}
           />
         </LineContainer>
-      </Section>
+      </Box>
     </View>
   );
 };
@@ -49,22 +67,6 @@ const Top = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-const DayValue = styled.Text<{theme: ITheme}>`
-  font-family: ${props => props.theme.Font.EB};
-  font-size: 32px;
-`;
-
-const DayText = styled.Text<{theme: ITheme}>`
-  color: ${props => props.theme.inputBorder};
-  font-family: ${props => props.theme.Font.B};
-  font-size: 17.3333px;
-  margin: 2.6666px;
-`;
-
-const Section = styled.View`
-  padding-bottom: 36.6666px;
 `;
 
 const LineContainer = styled.View`
@@ -85,10 +87,7 @@ const Block = styled.View<{theme: ITheme; writer: string}>`
   left: 5.3333px;
 `;
 
-const LineText = styled.Text<{theme: ITheme}>`
-  font-family: ${props => props.theme.Font.R};
-  color: ${props => props.theme.notifyMessage_03};
-  font-size: 20px;
+const Contents = styled(TextR)`
   line-height: 30px;
   width: 350px;
   margin-left: 32px;
