@@ -4,19 +4,36 @@ import styled from 'styled-components/native';
 
 import {ITheme} from './theme';
 
+import Box from './commonComponent/Box';
+import TextB, {TextEB, TextR} from './commonComponent/TextComponent';
 import CurrentColor from './component/CurrentColor';
 
 const MainToday = () => {
   return (
     <>
-      <View style={{marginTop: 133.3333}}>
+      {/* my color */}
+      <Box marginTop={133.3333}>
         <CurrentColor select="n1"></CurrentColor>
-      </View>
+      </Box>
+
+      {/* show my day */}
       <Section>
-        <LeftText>D+</LeftText>
-        <DayText>257</DayText>
-        <RightText>days</RightText>
+        <Box marginLeft={17.3333} marginRight={21.3333} marginBottom={16}>
+          <TextEB size={24} color="menuText">
+            D+
+          </TextEB>
+        </Box>
+        <TextEB size={80} color="mainText">
+          257
+        </TextEB>
+        <Box marginLeft={16} marginBottom={16}>
+          <TextEB size={24} color="notifyMessage_01">
+            days
+          </TextEB>
+        </Box>
       </Section>
+
+      {/* write button */}
       <Button>
         <Image
           source={require('../image/drawable-xxxhdpi/bt_upload.png')}
@@ -30,27 +47,6 @@ const Section = styled.View`
   margin-top: 88px;
   flex-direction: row;
   align-items: flex-end;
-`;
-
-const LeftText = styled.Text<{theme: ITheme}>`
-  color: ${props => props.theme.menuText};
-  font-family: ${props => props.theme.Font.EB}
-  font-size: 24px;
-  margin-left: 17.3333px;
-  margin-right: 21.3333px;
-  margin-bottom: 16px;
-`;
-
-const DayText = styled.Text<{theme: ITheme}>`
-  color: ${props => props.theme.mainText};
-  font-family: ${props => props.theme.Font.EB};
-  font-size: 80px;
-`;
-
-const RightText = styled(LeftText)<{theme: ITheme}>`
-  color: ${props => props.theme.notifyMessage_01};
-  margin-left: 16px;
-  margin-right: 0;
 `;
 
 const Button = styled.TouchableOpacity`
