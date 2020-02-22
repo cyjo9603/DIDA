@@ -1,5 +1,6 @@
 const theme = {
   mainText: '#111111',
+  white: '#fff',
   menuText: '#203f9b',
   inputBorder: '#adb5bd',
   dateBorder: '#f1f3f5',
@@ -35,6 +36,7 @@ const theme = {
 export interface ITheme {
   mainText: string;
   menuText: string;
+  white: string;
   inputBorder: string;
   dateBorder: string;
   notifyMessage_01: string;
