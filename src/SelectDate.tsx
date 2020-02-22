@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import styled from 'styled-components/native';
 
-import {ITheme} from './theme';
-
 import Container from './component/Container';
+import Box from './commonComponent/Box';
+import {TextEB} from './commonComponent/TextComponent';
 import BottomButton from './component/BottomButton';
 import LineContainer, {Line} from './component/LineContainer';
 import DateButton from './component/DateButton';
@@ -14,18 +14,29 @@ const SelectDate = () => {
   return (
     <>
       <Container>
-        <LineContainer>
-          <Line lineColor="#ffe6e9" width="280" weight="9.3333" />
-          <Message>커플이 된 날을 알려주세요!</Message>
-        </LineContainer>
+        {/* Top message */}
+        <Box marginTop={212}>
+          <LineContainer>
+            <Line lineColor="#ffe6e9" width="280" weight="9.3333" />
+            <TextEB size={24} color="mainText">
+              커플이 된 날을 알려주세요!
+            </TextEB>
+          </LineContainer>
+        </Box>
+
+        {/* show day */}
         <DayContainer>
           <Heart source={require('../image/drawable-xxxhdpi/icon_heart.png')} />
-          <DayText>{`${dayInnerText}일`}</DayText>
+          <Box marginLeft={48} marginRight={48}>
+            <TextEB size={40} color="mainText">{`${dayInnerText}일`}</TextEB>
+          </Box>
           <Heart source={require('../image/drawable-xxxhdpi/icon_heart.png')} />
         </DayContainer>
-        <DateContainer>
+
+        {/* show date */}
+        <Box marginTop={42.6666}>
           <DateButton />
-        </DateContainer>
+        </Box>
       </Container>
       <View>
         <BottomButton />
@@ -34,29 +45,11 @@ const SelectDate = () => {
   );
 };
 
-const DateContainer = styled.View`
-  margin-top: 42.6666px;
-`;
-
-const Message = styled.Text<{theme: ITheme}>`
-  font-family: ${props => props.theme.Font.EB};
-  color: ${props => props.theme.mainText};
-  font-size: 24px;
-  margin-top: 212px;
-`;
-
 const DayContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-top: 66.6666px;
-`;
-
-const DayText = styled.Text<{theme: ITheme}>`
-  font-family: ${props => props.theme.Font.EB};
-  color: ${props => props.theme.mainText};
-  font-size: 40px;
-  margin: 0 48px;
 `;
 
 const Heart = styled.Image`
