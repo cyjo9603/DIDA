@@ -7,6 +7,7 @@ const theme = {
   notifyMessage_01: '#868e96',
   notifyMessage_02: '#ced4da',
   notifyMessage_03: '#495057',
+  notifyMessage_04: '#242628',
   errorMessage: '#ff6679',
 
   buttonBackground: '#203f9b',
@@ -42,6 +43,7 @@ export interface ITheme {
   notifyMessage_01: string;
   notifyMessage_02: string;
   notifyMessage_03: string;
+  notifyMessage_04: string;
   errorMessage: string;
 
   buttonBackground: string;
