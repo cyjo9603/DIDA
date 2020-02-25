@@ -14,9 +14,7 @@ interface IProps {
 const MainTabItem: FunctionComponent<IProps> = ({title, state, press}) => {
   return (
     <TouchContainer style={{alignItems: 'center'}} onPress={() => press(title)}>
-      <TextEB
-        size={21.3333}
-        color={title === state ? 'menuText' : 'notifyMessage_01'}>
+      <TextEB size={21.3333} color={title === state ? 'navy_01' : 'gray_02'}>
         {title}
       </TextEB>
       {title === state && <UnderLine />}
@@ -30,7 +28,7 @@ const TouchContainer = styled.TouchableOpacity`
 
 const UnderLine = styled.View<{theme: ThemeType}>`
   margin-top: 6.6666px;
-  background-color: ${props => props.theme.menuText};
+  background-color: ${props => props.theme.itemColor.navy_01};
   width: 88px;
   height: 4px;
 `;

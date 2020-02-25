@@ -10,7 +10,7 @@ import TextB from '../commonComponent/TextComponent';
 import CurrentColor from '../component/CurrentColor';
 import BottomButton from '../component/BottomButton';
 
-type ColorKeys = keyof typeof theme.Color;
+type ColorKeys = keyof typeof theme.selectColor;
 
 const SelectColor = () => {
   const [color, setColor] = useState<ColorKeys>('n1');
@@ -22,7 +22,7 @@ const SelectColor = () => {
       <Container>
         {/* top message */}
         <Box marginTop={56}>
-          <Message size={24} color="mainText">
+          <Message size={24} color="main">
             환영합니다!{'\n'}당신의 '색상'을 골라주세요 :)
           </Message>
         </Box>
@@ -77,7 +77,8 @@ const ColorItem = styled.View<{
   width: 80px;
   height: 80px;
   border-radius: 40px;
-  background-color: ${(props: any) => props.theme.Color[props.colorIndex]};
+  background-color: ${(props: any) =>
+    props.theme.selectColor[props.colorIndex]};
 `;
 
 export default SelectColor;

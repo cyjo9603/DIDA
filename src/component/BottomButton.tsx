@@ -21,7 +21,7 @@ const BottomButton = () => {
 const MoveButton = styled.TouchableOpacity<{theme: ThemeType}>`
   width: 100%;
   height: 66.5333px;
-  background-color: ${props => props.theme.buttonBackground};
+  background-color: ${props => props.theme.itemColor.navy_01};
   justify-content: center;
   align-items: center;
 `;

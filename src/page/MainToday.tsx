@@ -17,15 +17,15 @@ const MainToday = () => {
       {/* show my day */}
       <Section>
         <Box marginLeft={17.3333} marginRight={21.3333} marginBottom={16}>
-          <TextEB size={24} color="menuText">
+          <TextEB size={24} color="navy_01">
             D+
           </TextEB>
         </Box>
-        <TextEB size={80} color="mainText">
+        <TextEB size={80} color="main">
           257
         </TextEB>
         <Box marginLeft={16} marginBottom={16}>
-          <TextEB size={24} color="notifyMessage_01">
+          <TextEB size={24} color="gray_02">
             days
           </TextEB>
         </Box>

@@ -10,7 +10,7 @@ const DateButton = () => {
 
   return (
     <Button>
-      <TextB size={24} color="notifyMessage_01">
+      <TextB size={24} color="gray_02">
         {select}
       </TextB>
     </Button>
@@ -22,9 +22,9 @@ const Button = styled.TouchableOpacity<{theme: ThemeType}>`
   align-items: center;
   width: 372px;
   height: 85.3333px;
-  background-color: ${props => props.theme.dateBackground};
+  background-color: ${props => props.theme.itemColor.lightGray_03};
   border-radius: 42.6666px;
-  border: solid 2.6666px ${props => props.theme.dateBorder};
+  border: solid 2.6666px ${props => props.theme.itemColor.lightGray_01};
 `;
 
 export default DateButton;

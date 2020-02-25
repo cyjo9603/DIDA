@@ -15,7 +15,7 @@ const DiaryItem = () => {
     <View>
       {/* header */}
       <Top>
-        <TextEB size={32} color="mainText">
+        <TextEB size={32} color="main">
           1459
         </TextEB>
         <TouchableOpacity>
@@ -29,7 +29,7 @@ const DiaryItem = () => {
       {/* contents */}
       <Box marginBottom={36.6666}>
         <Box marginLeft={2.6666} marginTop={2.6666} marginBottom={2.6666}>
-          <TextB size={17.3333} color="inputBorder">
+          <TextB size={17.3333} color="gray_01">
             days
           </TextB>
         </Box>
@@ -37,7 +37,7 @@ const DiaryItem = () => {
         {/* line contents */}
         <LineContainer>
           <Block writer={test01} />
-          <Contents size={20} color="notifyMessage_03">
+          <Contents size={20} color="darkGray_01">
             오늘 같이 본 영화는 너무 재밌었어!
           </Contents>
           <HeartOn
@@ -48,7 +48,7 @@ const DiaryItem = () => {
         </LineContainer>
         <LineContainer>
           <Block writer={test02} />
-          <Contents size={20} color="notifyMessage_03">
+          <Contents size={20} color="darkGray_01">
             앞으론 겨울왕국 같은건 보지말자 ㅠ 노잼
           </Contents>
           <HeartOn
@@ -77,8 +77,8 @@ const LineContainer = styled.View`
 const Block = styled.View<{theme: ThemeType; writer: string}>`
   background-color: ${props =>
     props.writer === 'yellow'
-      ? props.theme.blockYellow
-      : props.theme.blockBlue};
+      ? props.theme.itemColor.blockYellow
+      : props.theme.itemColor.blockBlue};
   position: absolute;
   width: 10.6666px;
   height: 10.6666px;

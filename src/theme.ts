@@ -1,21 +1,22 @@
 const theme = {
-  mainText: '#111111',
-  white: '#fff',
-  menuText: '#203f9b',
-  inputBorder: '#adb5bd',
-  dateBorder: '#f1f3f5',
-  notifyMessage_01: '#868e96',
-  notifyMessage_02: '#ced4da',
-  notifyMessage_03: '#495057',
-  notifyMessage_04: '#242628',
-  errorMessage: '#ff6679',
+  itemColor: {
+    main: '#111111',
+    white: '#fff',
+    navy_01: '#203f9b',
+    gray_01: '#adb5bd',
+    gray_02: '#868e96',
+    lightGray_01: '#f1f3f5',
+    lightGray_02: '#ced4da',
+    lightGray_03: '#f8f9fa',
+    darkGray_01: '#495057',
+    darkGray_02: '#242628',
+    error: '#ff6679',
 
-  buttonBackground: '#203f9b',
-  dateBackground: '#f8f9fa',
-  blockYellow: '#ffdd0a',
-  blockBlue: '#4a90e2',
+    blockYellow: '#ffdd0a',
+    blockBlue: '#4a90e2',
+  },
 
-  Color: {
+  selectColor: {
     n1: '#ffdd0a',
     n2: '#a9186d',
     n3: '#34524f',

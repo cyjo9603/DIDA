@@ -15,7 +15,7 @@ const WriteDiary = () => {
       {/* drop down menu */}
       <Box marginTop={45.3333}>
         <RowContainer>
-          <TextEB size={26.6666} color="mainText">
+          <TextEB size={26.6666} color="main">
             D+123
           </TextEB>
           <Box marginLeft={8}>
@@ -29,7 +29,7 @@ const WriteDiary = () => {
 
       {/* question message */}
       <Box marginTop={65.3333}>
-        <TextB size={21.3333} color="notifyMessage_04">
+        <TextB size={21.3333} color="darkGray_02">
           오늘 기분 어때요?
         </TextB>
       </Box>
@@ -89,9 +89,9 @@ const HeartImage = styled.Image`
 `;
 
 const InputMessage = styled.TextInput<{theme: ThemeType}>`
-  border: solid 1.3333px ${props => props.theme.dateBorder};
+  border: solid 1.3333px ${props => props.theme.itemColor.lightGray_01};
   font-family: ${props => props.theme.Font.R};
-  color: ${props => props.theme.notifyMessage_03};
+  color: ${props => props.theme.itemColor.darkGray_01};
   font-size: 20px;
   width: 414.6666px;
   height: 261.3333px;

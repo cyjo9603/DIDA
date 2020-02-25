@@ -18,7 +18,7 @@ const SelectDate = () => {
         <Box marginTop={212}>
           <LineContainer>
             <Line lineColor="#ffe6e9" width="280" weight="9.3333" />
-            <TextEB size={24} color="mainText">
+            <TextEB size={24} color="main">
               커플이 된 날을 알려주세요!
             </TextEB>
           </LineContainer>
@@ -30,7 +30,7 @@ const SelectDate = () => {
             source={require('../../image/drawable-xxxhdpi/icon_heart.png')}
           />
           <Box marginLeft={48} marginRight={48}>
-            <TextEB size={40} color="mainText">{`${dayInnerText}일`}</TextEB>
+            <TextEB size={40} color="main">{`${dayInnerText}일`}</TextEB>
           </Box>
           <Heart
             source={require('../../image/drawable-xxxhdpi/icon_heart.png')}
