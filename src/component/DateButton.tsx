@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
+import {ThemeType} from '../theme';
 
 import TextB from '../commonComponent/TextComponent';
 
@@ -17,7 +17,7 @@ const DateButton = () => {
   );
 };
 
-const Button = styled.TouchableOpacity<{theme: ITheme}>`
+const Button = styled.TouchableOpacity<{theme: ThemeType}>`
   justify-content: center;
   align-items: center;
   width: 372px;

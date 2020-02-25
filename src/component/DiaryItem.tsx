@@ -2,7 +2,7 @@ import React from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
+import {ThemeType} from '../theme';
 
 import Box from '../commonComponent/Box';
 import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
@@ -74,7 +74,7 @@ const LineContainer = styled.View`
   margin-top: 10.6666px;
 `;
 
-const Block = styled.View<{theme: ITheme; writer: string}>`
+const Block = styled.View<{theme: ThemeType; writer: string}>`
   background-color: ${props =>
     props.writer === 'yellow'
       ? props.theme.blockYellow

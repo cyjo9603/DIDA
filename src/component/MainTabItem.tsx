@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
+import {ThemeType} from '../theme';
 
 import {TextEB} from '../commonComponent/TextComponent';
 
@@ -28,7 +28,7 @@ const TouchContainer = styled.TouchableOpacity`
   width: 88px;
 `;
 
-const UnderLine = styled.View<{theme: ITheme}>`
+const UnderLine = styled.View<{theme: ThemeType}>`
   margin-top: 6.6666px;
   background-color: ${props => props.theme.menuText};
   width: 88px;

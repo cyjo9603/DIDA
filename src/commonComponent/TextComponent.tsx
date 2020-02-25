@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
-type ThemeKeys = keyof ITheme;
+import {ThemeType} from '../theme';
+type ThemeKeys = keyof ThemeType;
 
 export const TextEB = styled.Text<{
-  theme: ITheme;
+  theme: ThemeType;
   size: number;
   color: ThemeKeys;
 }>`
@@ -15,7 +15,7 @@ export const TextEB = styled.Text<{
 `;
 
 export const TextR = styled.Text<{
-  theme: ITheme;
+  theme: ThemeType;
   size: number;
   color: ThemeKeys;
 }>`
@@ -25,7 +25,7 @@ export const TextR = styled.Text<{
 `;
 
 export const TextL = styled.Text<{
-  theme: ITheme;
+  theme: ThemeType;
   size: number;
   color: ThemeKeys;
 }>`
@@ -34,7 +34,7 @@ export const TextL = styled.Text<{
   color: ${props => props.theme[props.color]};
 `;
 
-const TextB = styled.Text<{theme: ITheme; size: number; color: ThemeKeys}>`
+const TextB = styled.Text<{theme: ThemeType; size: number; color: ThemeKeys}>`
   font-family: ${props => props.theme.Font.B};
   font-size: ${props => props.size}px;
   color: ${props => props.theme[props.color]};

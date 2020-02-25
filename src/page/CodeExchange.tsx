@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
+import {ThemeType} from '../theme';
 
 import Container from '../component/Container';
 import Box from '../commonComponent/Box';
@@ -75,7 +75,7 @@ const ItemComtainer = styled.View`
   align-items: center;
 `;
 
-const InputCode = styled.TextInput<{theme: ITheme}>`
+const InputCode = styled.TextInput<{theme: ThemeType}>`
   font-family: ${props => props.theme.Font.B};
   width: 372px;
   height: 85.3333px;

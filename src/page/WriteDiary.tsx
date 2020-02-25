@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
+import {ThemeType} from '../theme';
 
 import Container from '../component/Container';
 import RowContainer from '../commonComponent/RowContainer';
@@ -88,7 +88,7 @@ const HeartImage = styled.Image`
   height: 56px;
 `;
 
-const InputMessage = styled.TextInput<{theme: ITheme}>`
+const InputMessage = styled.TextInput<{theme: ThemeType}>`
   border: solid 1.3333px ${props => props.theme.dateBorder};
   font-family: ${props => props.theme.Font.R};
   color: ${props => props.theme.notifyMessage_03};

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 
-import theme, {ITheme} from '../theme';
+import theme, {ThemeType} from '../theme';
 
 import Container from '../component/Container';
 import Box from '../commonComponent/Box';
@@ -71,7 +71,7 @@ const ColorContainer = styled.TouchableOpacity`
 `;
 
 const ColorItem = styled.View<{
-  theme: ITheme;
+  theme: ThemeType;
   colorIndex: string;
 }>`
   width: 80px;

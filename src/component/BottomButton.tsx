@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import {ITheme} from '../theme';
+import {ThemeType} from '../theme';
 
 import TextEB from '../commonComponent/TextComponent';
 
@@ -18,7 +18,7 @@ const BottomButton = () => {
   );
 };
 
-const MoveButton = styled.TouchableOpacity<{theme: ITheme}>`
+const MoveButton = styled.TouchableOpacity<{theme: ThemeType}>`
   width: 100%;
   height: 66.5333px;
   background-color: ${props => props.theme.buttonBackground};
