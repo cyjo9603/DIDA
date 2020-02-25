@@ -2,12 +2,12 @@ import React from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 
-import Container from './component/Container';
-import Box from './commonComponent/Box';
-import {TextEB} from './commonComponent/TextComponent';
-import BottomButton from './component/BottomButton';
-import LineContainer, {Line} from './component/LineContainer';
-import DateButton from './component/DateButton';
+import Container from '../component/Container';
+import Box from '../commonComponent/Box';
+import {TextEB} from '../commonComponent/TextComponent';
+import BottomButton from '../component/BottomButton';
+import LineContainer, {Line} from '../component/LineContainer';
+import DateButton from '../component/DateButton';
 
 const SelectDate = () => {
   const dayInnerText = 1;
@@ -26,11 +26,15 @@ const SelectDate = () => {
 
         {/* show day */}
         <DayContainer>
-          <Heart source={require('../image/drawable-xxxhdpi/icon_heart.png')} />
+          <Heart
+            source={require('../../image/drawable-xxxhdpi/icon_heart.png')}
+          />
           <Box marginLeft={48} marginRight={48}>
             <TextEB size={40} color="mainText">{`${dayInnerText}일`}</TextEB>
           </Box>
-          <Heart source={require('../image/drawable-xxxhdpi/icon_heart.png')} />
+          <Heart
+            source={require('../../image/drawable-xxxhdpi/icon_heart.png')}
+          />
         </DayContainer>
 
         {/* show date */}

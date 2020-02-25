@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import {ITheme} from './theme';
+import {ITheme} from '../theme';
 
-import Container from './component/Container';
-import Box from './commonComponent/Box';
-import TextB, {TextEB, TextR} from './commonComponent/TextComponent';
-import BottomButton from './component/BottomButton';
-import LineContainer, {Line} from './component/LineContainer';
+import Container from '../component/Container';
+import Box from '../commonComponent/Box';
+import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
+import BottomButton from '../component/BottomButton';
+import LineContainer, {Line} from '../component/LineContainer';
 
 const CodeExchange = () => {
   const showingError = true;

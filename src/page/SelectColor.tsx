@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 
-import theme, {ITheme} from './theme';
+import theme, {ITheme} from '../theme';
 
-import Container from './component/Container';
-import Box from './commonComponent/Box';
-import TextB from './commonComponent/TextComponent';
-import CurrentColor from './component/CurrentColor';
-import BottomButton from './component/BottomButton';
+import Container from '../component/Container';
+import Box from '../commonComponent/Box';
+import TextB from '../commonComponent/TextComponent';
+import CurrentColor from '../component/CurrentColor';
+import BottomButton from '../component/BottomButton';
 
 type ColorKeys = keyof typeof theme.Color;
 

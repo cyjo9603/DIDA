@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import DiaryItem from './component/DiaryItem';
-import BoundaryLine from './component/BoundaryLine';
+import DiaryItem from '../component/DiaryItem';
+import BoundaryLine from '../component/BoundaryLine';
 
 const MainDiary = () => {
   return (

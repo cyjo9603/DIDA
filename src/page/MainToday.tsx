@@ -2,9 +2,9 @@ import React from 'react';
 import {Image} from 'react-native';
 import styled from 'styled-components/native';
 
-import Box from './commonComponent/Box';
-import {TextEB} from './commonComponent/TextComponent';
-import CurrentColor from './component/CurrentColor';
+import Box from '../commonComponent/Box';
+import {TextEB} from '../commonComponent/TextComponent';
+import CurrentColor from '../component/CurrentColor';
 
 const MainToday = () => {
   return (
@@ -34,7 +34,7 @@ const MainToday = () => {
       {/* write button */}
       <Button>
         <Image
-          source={require('../image/drawable-xxxhdpi/bt_upload.png')}
+          source={require('../../image/drawable-xxxhdpi/bt_upload.png')}
           style={{width: 74.6666, height: 74.6666}}></Image>
       </Button>
     </>

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
 
-import Header from './component/Header';
-import Container from './component/Container';
-import MainTabItem from './component/MainTabItem';
+import Header from '../component/Header';
+import Container from '../component/Container';
+import MainTabItem from '../component/MainTabItem';
 import MainToday from './MainToday';
 import MainDiary from './MainDiary';
 

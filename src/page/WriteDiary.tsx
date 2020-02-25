@@ -2,12 +2,12 @@ import React from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
-import {ITheme} from './theme';
+import {ITheme} from '../theme';
 
-import Container from './component/Container';
-import RowContainer from './commonComponent/RowContainer';
-import Box from './commonComponent/Box';
-import TextB, {TextEB} from './commonComponent/TextComponent';
+import Container from '../component/Container';
+import RowContainer from '../commonComponent/RowContainer';
+import Box from '../commonComponent/Box';
+import TextB, {TextEB} from '../commonComponent/TextComponent';
 
 const WriteDiary = () => {
   return (
@@ -20,7 +20,7 @@ const WriteDiary = () => {
           </TextEB>
           <Box marginLeft={8}>
             <Image
-              source={require('../image/drawable-xxxhdpi/ic_dropdown.png')}
+              source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')}
               style={{width: 18.6666, height: 18.6666}}
             />
           </Box>
@@ -40,27 +40,27 @@ const WriteDiary = () => {
           {/* heart level */}
           <TouchContainer>
             <HeartImage
-              source={require('../image/drawable-xxxhdpi/ic_heart_1_off.png')}
+              source={require('../../image/drawable-xxxhdpi/ic_heart_1_off.png')}
             />
           </TouchContainer>
           <TouchContainer>
             <HeartImage
-              source={require('../image/drawable-xxxhdpi/ic_heart_2_off.png')}
+              source={require('../../image/drawable-xxxhdpi/ic_heart_2_off.png')}
             />
           </TouchContainer>
           <TouchContainer>
             <HeartImage
-              source={require('../image/drawable-xxxhdpi/ic_heart_3_off.png')}
+              source={require('../../image/drawable-xxxhdpi/ic_heart_3_off.png')}
             />
           </TouchContainer>
           <TouchContainer>
             <HeartImage
-              source={require('../image/drawable-xxxhdpi/ic_heart_4_off.png')}
+              source={require('../../image/drawable-xxxhdpi/ic_heart_4_off.png')}
             />
           </TouchContainer>
           <TouchableOpacity>
             <HeartImage
-              source={require('../image/drawable-xxxhdpi/ic_heart_5_off.png')}
+              source={require('../../image/drawable-xxxhdpi/ic_heart_5_off.png')}
             />
           </TouchableOpacity>
         </HeartContainer>
