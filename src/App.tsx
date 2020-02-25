@@ -2,12 +2,13 @@ import React from 'react';
 import {View, Text, StatusBar} from 'react-native';
 import {ThemeProvider} from 'styled-components';
 
-import theme from './src/theme';
+import theme from './theme';
 
-import CodeExchange from './src/CodeExchange';
-import SelectDate from './src/SelectDate';
-import SelectColor from './src/SelectColor';
-import Main from './src/Main';
+import CodeExchange from './page/CodeExchange';
+import SelectDate from './page/SelectDate';
+import SelectColor from './page/SelectColor';
+import Main from './page/Main';
+import WriteDiary from './page/WriteDiary';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         {/* <SelectDate /> */}
         {/* <SelectColor /> */}
         <Main />
+        {/* <WriteDiary /> */}
       </ThemeProvider>
     </>
   );
