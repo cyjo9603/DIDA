@@ -37,7 +37,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
 
         {/* Code value */}
         <LineContainer>
-          <Line lineColor="#ffe6e9" width="160" weight="13.3333" />
+          <Line lineColor="#ffe6e9" width="160" height="13.3333" />
           <TextEB size={40} color="main">
             A16382
           </TextEB>
@@ -60,9 +60,14 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
       </Container>
 
       {/* bottom */}
-      <ItemComtainer>
+      <ItemComtainer style={{backgroundColor: '#fff'}}>
         <LineContainer marginBottom="39.3333">
-          <Line lineColor="#f1f3f5" width="260.6666" weight="9.3333" />
+          <Line
+            lineColor="#f1f3f5"
+            width="280"
+            height="9.3333"
+            position={'-1'}
+          />
           <TextR size={20} color="gray_02">
             기존에 사용하던 코드가 있어요!
           </TextR>

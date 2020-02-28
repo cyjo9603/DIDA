@@ -24,7 +24,7 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
         {/* Top message */}
         <Box marginTop={212}>
           <LineContainer>
-            <Line lineColor="#ffe6e9" width="280" weight="9.3333" />
+            <Line lineColor="#ffe6e9" width="280" height="9.3333" />
             <TextEB size={24} color="main">
               커플이 된 날을 알려주세요!
             </TextEB>
