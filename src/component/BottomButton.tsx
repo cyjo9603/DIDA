@@ -5,12 +5,11 @@ import {ThemeType} from '../theme';
 
 import TextEB from '../commonComponent/TextComponent';
 
-const BottomButton = () => {
+const BottomButton: React.FunctionComponent<{moveScreen: () => void}> = ({
+  moveScreen,
+}) => {
   return (
-    <MoveButton
-      onPress={() => {
-        console.log('bottom');
-      }}>
+    <MoveButton onPress={moveScreen}>
       <TextEB size={20} color="white">
         다음
       </TextEB>

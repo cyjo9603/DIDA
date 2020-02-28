@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import Container from '../component/Container';
 import Box from '../commonComponent/Box';
@@ -9,7 +10,13 @@ import BottomButton from '../component/BottomButton';
 import LineContainer, {Line} from '../component/LineContainer';
 import DateButton from '../component/DateButton';
 
-const SelectDate = () => {
+import {StackParamList} from '../App';
+
+interface IProps {
+  navigation: StackNavigationProp<StackParamList, 'SelectColor'>;
+}
+
+const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
   const dayInnerText = 1;
   return (
     <>
@@ -43,7 +50,7 @@ const SelectDate = () => {
         </Box>
       </Container>
       <View>
-        <BottomButton />
+        <BottomButton moveScreen={() => navigation.navigate('SelectColor')} />
       </View>
     </>
   );

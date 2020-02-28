@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {ThemeType} from '../theme';
 
@@ -9,7 +10,13 @@ import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
 import BottomButton from '../component/BottomButton';
 import LineContainer, {Line} from '../component/LineContainer';
 
-const CodeExchange = () => {
+import {StackParamList} from '../App';
+
+interface IProps {
+  navigation: StackNavigationProp<StackParamList, 'CodeExchange'>;
+}
+
+const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   const showingError = true;
   return (
     <>
@@ -60,7 +67,7 @@ const CodeExchange = () => {
             기존에 사용하던 코드가 있어요!
           </TextR>
         </LineContainer>
-        <BottomButton />
+        <BottomButton moveScreen={() => navigation.navigate('SelectDate')} />
       </ItemComtainer>
     </>
   );
