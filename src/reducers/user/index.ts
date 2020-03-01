@@ -2,7 +2,7 @@ import IUserSignUp, {USER_SIGNUP_REQUEST} from './userSignUp';
 import TUserInfo, {USER_INFO_UPDATE_REQUEST, USER_INFO_CHECK_REQUEST, USER_INFO_CHECK_SUCCESS, USER_INFO_CHECK_FAILURE} from './userInfo';
 import IDeleteUser, {DELETE_USER_REQUEST} from './deleteUser';
 
-interface IUserState {
+export interface IUserState {
   isConnected: boolean;
   userInfo: {
     userCode: string;

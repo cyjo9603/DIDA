@@ -15,7 +15,7 @@ interface IDiaryData {
   partnerDiary: IDiaryContents;
 }
 
-interface IDiaryState {
+export interface IDiaryState {
   diaryLists: IDiaryData[];
 }
 
@@ -66,3 +66,5 @@ const diaryReducer = (state: IDiaryState = diaryInitailState, action: DairyReduc
     }
   }
 };
+
+export default diaryReducer;
