@@ -58,6 +58,9 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
         ...state,
       };
     }
+
+    default:
+      return {...state};
   }
 };
 

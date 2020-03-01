@@ -64,6 +64,9 @@ const diaryReducer = (state: IDiaryState = diaryInitailState, action: DairyReduc
         ...state,
       };
     }
+
+    default:
+      return {...state};
   }
 };
 
