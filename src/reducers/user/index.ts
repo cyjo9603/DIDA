@@ -7,16 +7,23 @@ export interface IUserState {
   userInfo: {
     userCode: string;
     partnerCode: string;
-    selectColor: string;
+    selectColor: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
     firstDate: Date;
   } | null;
 }
 
-const dummyData = {
+interface IDummy {
+  userCode: string;
+  partnerCode: string;
+  selectColor: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
+  firstDate: Date;
+}
+
+const dummyData: IDummy = {
   userCode: 'T01234',
   partnerCode: 'T12345',
   selectColor: 'n1',
-  firstDate: new Date('2020-2-20'),
+  firstDate: new Date(2020, 1, 2),
 };
 
 const userInitialState: IUserState = {
