@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -10,14 +10,29 @@ import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
 import BottomButton from '../component/BottomButton';
 import LineContainer, {Line} from '../component/LineContainer';
 
-import {StackParamList} from '../App';
+import {StackParamList} from '../MainPage';
 
 interface IProps {
   navigation: StackNavigationProp<StackParamList, 'CodeExchange'>;
 }
 
 const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
-  const showingError = true;
+  const [code, setCode] = useState<string | null>(null);
+  const [isError, setIsError] = useState(false);
+
+  const getRandomCode = () => {
+    const first = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+    const number = (Math.random() * 100000).toFixed(0).substr(0, 5);
+    const digits = Array(5 - number.length)
+      .fill('0')
+      .join('');
+    return `${first}${digits}${number}`;
+  };
+
+  useEffect(() => {
+    setCode(getRandomCode());
+  }, []);
+
   return (
     <>
       <Container>
@@ -39,7 +54,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
         <LineContainer>
           <Line lineColor="#ffe6e9" width="160" height="13.3333" />
           <TextEB size={40} color="main">
-            A16382
+            {code}
           </TextEB>
         </LineContainer>
 
@@ -47,7 +62,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
         <InputCode placeholder="상대방 코드 입력"></InputCode>
 
         {/* Error message */}
-        <TextR color={showingError ? 'error' : 'white'} size={18.6666}>
+        <TextR color={isError ? 'error' : 'white'} size={18.6666}>
           * 코드를 확인해주세요 *
         </TextR>
 
@@ -62,12 +77,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
       {/* bottom */}
       <ItemComtainer style={{backgroundColor: '#fff'}}>
         <LineContainer marginBottom="39.3333">
-          <Line
-            lineColor="#f1f3f5"
-            width="280"
-            height="9.3333"
-            position={'-1'}
-          />
+          <Line lineColor="#f1f3f5" width="280" height="9.3333" position={'-1'} />
           <TextR size={20} color="gray_02">
             기존에 사용하던 코드가 있어요!
           </TextR>
