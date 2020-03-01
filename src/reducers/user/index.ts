@@ -12,9 +12,16 @@ export interface IUserState {
   } | null;
 }
 
+const dummyData = {
+  userCode: 'T01234',
+  partnerCode: 'T12345',
+  selectColor: 'n1',
+  firstDate: new Date('2020-2-20'),
+};
+
 const userInitialState: IUserState = {
-  isConnected: true,
-  userInfo: null,
+  isConnected: false,
+  userInfo: dummyData,
 };
 
 type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser;
