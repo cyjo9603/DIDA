@@ -10,6 +10,7 @@ export interface IUserState {
     selectColor: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8' | null;
     firstDate: Date | null;
   };
+  createCount: number;
 }
 
 interface IDummy {
@@ -34,6 +35,7 @@ const userInitialState: IUserState = {
     selectColor: null,
     firstDate: null,
   },
+  createCount: 0,
 };
 
 type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser;
@@ -73,7 +75,10 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
           userInfo,
         };
       } else {
-        return {...state};
+        return {
+          ...state,
+          createCount: state.createCount + 1,
+        };
       }
     }
     case USER_INFO_CHECK_FAILURE: {

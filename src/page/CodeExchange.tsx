@@ -22,6 +22,7 @@ interface IProps {
 const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   const dispatch = useDispatch();
   const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const {createCount} = useSelector((state: IRootState) => state.userReducer);
   const [isError, setIsError] = useState(false);
 
   const getRandomCode = () => {
@@ -34,11 +35,9 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    if (userCode === null) {
-      const code = getRandomCode();
-      dispatch(userInfoCheckRequest(code));
-    }
-  }, [userCode]);
+    const code = getRandomCode();
+    dispatch(userInfoCheckRequest(code));
+  }, [createCount]);
 
   return (
     <>
