@@ -9,11 +9,16 @@ interface IUserInfoUpdate {
 }
 
 // user info check
-interface IUserInfoCheckRequest {
+export interface IUserInfoCheckRequest {
   type: typeof USER_INFO_CHECK_REQUEST;
+  code: string;
 }
 interface IUserInfoCheckSuccess {
   type: typeof USER_INFO_CHECK_SUCCESS;
+  data: {
+    check: Boolean;
+    code: string;
+  };
 }
 interface IUserInfoCheckFailure {
   type: typeof USER_INFO_CHECK_FAILURE;
@@ -25,14 +30,16 @@ export const userInfoUpdate = () => ({
 });
 
 // user info check
-export const userInfoCheckRequest = () => ({
+export const userInfoCheckRequest = (code: string): IUserInfoCheckRequest => ({
   type: USER_INFO_CHECK_REQUEST,
+  code,
 });
-export const userInfoCheckSuccess = () => ({
-  type: USER_INFO_CHECK_REQUEST,
+export const userInfoCheckSuccess = (data: {check: Boolean; code: string}) => ({
+  type: USER_INFO_CHECK_SUCCESS,
+  data,
 });
 export const userInfoCheckFailure = () => ({
-  type: USER_INFO_CHECK_REQUEST,
+  type: USER_INFO_CHECK_FAILURE,
 });
 
 type TUserInfo = IUserInfoUpdate | IUserInfoCheckRequest | IUserInfoCheckSuccess | IUserInfoCheckFailure;

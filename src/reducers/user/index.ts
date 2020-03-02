@@ -5,11 +5,11 @@ import IDeleteUser, {DELETE_USER_REQUEST} from './deleteUser';
 export interface IUserState {
   isConnected: boolean;
   userInfo: {
-    userCode: string;
-    partnerCode: string;
-    selectColor: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
-    firstDate: Date;
-  } | null;
+    userCode: string | null;
+    partnerCode: string | null;
+    selectColor: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8' | null;
+    firstDate: Date | null;
+  };
 }
 
 interface IDummy {
@@ -28,7 +28,12 @@ const dummyData: IDummy = {
 
 const userInitialState: IUserState = {
   isConnected: false,
-  userInfo: dummyData,
+  userInfo: {
+    userCode: null,
+    partnerCode: null,
+    selectColor: null,
+    firstDate: null,
+  },
 };
 
 type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser;
@@ -37,6 +42,7 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
   switch (action.type) {
     // signup
     case USER_SIGNUP_REQUEST: {
+      console.log('USER_SIGNUP_REQUEST');
       return {
         ...state,
       };
@@ -44,23 +50,34 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
 
     //  user info update
     case USER_INFO_UPDATE_REQUEST: {
-      return {
-        ...state,
-      };
-    }
-    case USER_INFO_CHECK_REQUEST: {
-      return {
-        ...state,
-      };
-    }
-    case USER_INFO_CHECK_SUCCESS: {
+      console.log('USER_INFO_UPDATE_REQUEST');
       return {
         ...state,
       };
     }
 
     // user info check
+    case USER_INFO_CHECK_REQUEST: {
+      console.log('USER_INFO_CHECK_REQUEST');
+      return {
+        ...state,
+      };
+    }
+    case USER_INFO_CHECK_SUCCESS: {
+      console.log('USER_INFO_CHECK_SUCCESS');
+      if (!action.data.check) {
+        const userInfo = {...state.userInfo};
+        userInfo.userCode = action.data.code;
+        return {
+          ...state,
+          userInfo,
+        };
+      } else {
+        return {...state};
+      }
+    }
     case USER_INFO_CHECK_FAILURE: {
+      console.log('USER_INFO_CHECK_FAILURE');
       return {
         ...state,
       };
@@ -68,6 +85,7 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
 
     // delete user info
     case DELETE_USER_REQUEST: {
+      console.log('DELETE_USER_REQUEST');
       return {
         ...state,
       };

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {ThemeType} from '../theme';
 
@@ -11,13 +12,16 @@ import BottomButton from '../component/BottomButton';
 import LineContainer, {Line} from '../component/LineContainer';
 
 import {StackParamList} from '../MainPage';
+import {userInfoCheckRequest, userInfoCheckSuccess} from '../reducers/user/userInfo';
+import {IRootState} from '../reducers/index';
 
 interface IProps {
   navigation: StackNavigationProp<StackParamList, 'CodeExchange'>;
 }
 
 const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
-  const [code, setCode] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
   const [isError, setIsError] = useState(false);
 
   const getRandomCode = () => {
@@ -30,8 +34,11 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    setCode(getRandomCode());
-  }, []);
+    if (userCode === null) {
+      const code = getRandomCode();
+      dispatch(userInfoCheckRequest(code));
+    }
+  }, [userCode]);
 
   return (
     <>
@@ -54,7 +61,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
         <LineContainer>
           <Line lineColor="#ffe6e9" width="160" height="13.3333" />
           <TextEB size={40} color="main">
-            {code}
+            {userCode ? userCode : 'LOADING'}
           </TextEB>
         </LineContainer>
 
