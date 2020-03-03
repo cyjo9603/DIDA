@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, FunctionComponent} from 'react';
 import styled from 'styled-components/native';
 
 import {ThemeType} from '../theme';
 
 import TextB from '../commonComponent/TextComponent';
 
-const DateButton = () => {
+interface IProps {
+  openDatePicker: () => void;
+  selectDate: string;
+}
+
+const DateButton: FunctionComponent<IProps> = ({openDatePicker, selectDate}) => {
   const [select, setSelect] = useState('2020.01.24 (금)');
 
   return (
-    <Button>
+    <Button onPress={openDatePicker}>
       <TextB size={24} color="gray_02">
         {select}
       </TextB>

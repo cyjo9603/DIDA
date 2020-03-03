@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Container from '../component/Container';
 import Box from '../commonComponent/Box';
@@ -10,14 +11,27 @@ import BottomButton from '../component/BottomButton';
 import LineContainer, {Line} from '../component/LineContainer';
 import DateButton from '../component/DateButton';
 
-import {StackParamList} from '../App';
+import {StackParamList} from '../MainPage';
 
 interface IProps {
   navigation: StackNavigationProp<StackParamList, 'SelectColor'>;
 }
 
 const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [show, setShow] = useState(false);
   const dayInnerText = 1;
+
+  const onChangeDate = (e: any, selectedDate: any) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    console.log(date);
+  };
+
+  const showDatePicker = () => {
+    setShow(true);
+  };
+
   return (
     <>
       <Container>
@@ -39,10 +53,11 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
           </Box>
           <Heart source={require('../../image/drawable-xxxhdpi/icon_heart.png')} />
         </DayContainer>
+        {show && <DateTimePicker value={date} display="spinner" onChange={onChangeDate} maximumDate={new Date()} />}
 
         {/* show date */}
         <Box marginTop={42.6666}>
-          <DateButton />
+          <DateButton openDatePicker={showDatePicker} selectDate="" />
         </Box>
       </Container>
       <View>
