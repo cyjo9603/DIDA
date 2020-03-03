@@ -23,6 +23,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   const dispatch = useDispatch();
   const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
   const {createCount} = useSelector((state: IRootState) => state.userReducer);
+  const [inputPartnerCode, setInputPartnerCode] = useState('');
   const [isError, setIsError] = useState(false);
 
   const getRandomCode = () => {
@@ -35,9 +36,21 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    const code = getRandomCode();
-    dispatch(userInfoCheckRequest(code));
+    if (userCode === null) {
+      const code = getRandomCode();
+      dispatch(userInfoCheckRequest(code));
+    }
   }, [createCount]);
+
+  const onChangeInput = (e: string) => {
+    setInputPartnerCode(e);
+  };
+
+  const onSubmitInputCode = () => {
+    if (false) {
+      navigation.navigate('SelectDate');
+    }
+  };
 
   return (
     <>
@@ -45,7 +58,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
         {/* Top message */}
         <Box marginTop={56}>
           <Message size={24} color="main">
-            상대방과의{`\n`}코드 연결이 필요해요 :)
+            {`상대방과의\n코드 연결이 필요해요 :)`}
           </Message>
         </Box>
 
@@ -65,7 +78,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
         </LineContainer>
 
         {/* input code */}
-        <InputCode placeholder="상대방 코드 입력"></InputCode>
+        <InputCode placeholder="상대방 코드 입력" value={inputPartnerCode} onChangeText={onChangeInput}></InputCode>
 
         {/* Error message */}
         <TextR color={isError ? 'error' : 'white'} size={18.6666}>
@@ -88,7 +101,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
             기존에 사용하던 코드가 있어요!
           </TextR>
         </LineContainer>
-        <BottomButton moveScreen={() => navigation.navigate('SelectDate')} />
+        <BottomButton moveScreen={onSubmitInputCode} />
       </ItemComtainer>
     </>
   );

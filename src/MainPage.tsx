@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -8,6 +8,7 @@ import CodeExchange from './page/CodeExchange';
 import SelectDate from './page/SelectDate';
 import SelectColor from './page/SelectColor';
 import Main from './page/Main';
+import Splash from './page/Splash';
 import StackHeader from './component/StackHeader';
 import {IRootState} from './reducers/index';
 
@@ -24,7 +25,11 @@ const MainPage = () => {
 
   return (
     <>
-      {isConnected ? (
+      {isConnected === null ? (
+        <Splash />
+      ) : isConnected ? (
+        <Main />
+      ) : (
         <NavigationContainer>
           <Stack.Navigator initialRouteName="CodeExchange">
             <Stack.Screen
@@ -53,8 +58,6 @@ const MainPage = () => {
             />
           </Stack.Navigator>
         </NavigationContainer>
-      ) : (
-        <Main />
       )}
     </>
   );

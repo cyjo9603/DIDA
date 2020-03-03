@@ -1,44 +1,49 @@
 import IUserSignUp, {USER_SIGNUP_REQUEST} from './userSignUp';
 import TUserInfo, {USER_INFO_UPDATE_REQUEST, USER_INFO_CHECK_REQUEST, USER_INFO_CHECK_SUCCESS, USER_INFO_CHECK_FAILURE} from './userInfo';
 import IDeleteUser, {DELETE_USER_REQUEST} from './deleteUser';
+import IGetLocalData, {GET_LOCAL_DATA} from './getLocalData';
+import ISetIsConnected, {SET_ISCONNECTED} from './setIsConnected';
 
 export interface IUserState {
-  isConnected: boolean;
+  isConnected: boolean | null;
   userInfo: {
     userCode: string | null;
     partnerCode: string | null;
-    selectColor: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8' | null;
-    firstDate: Date | null;
+    selectColor?: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
+    firstDate?: Date;
+    isLocalData: Boolean;
   };
   createCount: number;
 }
 
 interface IDummy {
-  userCode: string;
-  partnerCode: string;
-  selectColor: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
-  firstDate: Date;
+  userCode?: string;
+  partnerCode?: string;
+  selectColor?: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
+  firstDate?: Date;
+  isLocalData: Boolean;
 }
 
 const dummyData: IDummy = {
-  userCode: 'T01234',
+  userCode: undefined,
   partnerCode: 'T12345',
   selectColor: 'n1',
   firstDate: new Date(2020, 1, 2),
+  isLocalData: true,
 };
 
 const userInitialState: IUserState = {
-  isConnected: false,
+  isConnected: null,
   userInfo: {
     userCode: null,
     partnerCode: null,
-    selectColor: null,
-    firstDate: null,
+    isLocalData: false,
   },
+  //  userInfo: dummyData,
   createCount: 0,
 };
 
-type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser;
+type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected;
 
 const userReducer = (state: IUserState = userInitialState, action: UserReducerAction) => {
   switch (action.type) {
@@ -75,6 +80,7 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
           userInfo,
         };
       } else {
+        0;
         return {
           ...state,
           createCount: state.createCount + 1,
@@ -93,6 +99,27 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
       console.log('DELETE_USER_REQUEST');
       return {
         ...state,
+      };
+    }
+
+    // get local data
+    case GET_LOCAL_DATA: {
+      console.log('GET_LOCAL_DATA');
+      const userInfo = {...state.userInfo};
+      userInfo.userCode = action.data.userCode;
+      userInfo.partnerCode = action.data.partnerCode;
+      userInfo.isLocalData = true;
+      return {
+        ...state,
+        userInfo,
+      };
+    }
+
+    // set isConnected
+    case SET_ISCONNECTED: {
+      return {
+        ...state,
+        isConnected: action.check,
       };
     }
 
