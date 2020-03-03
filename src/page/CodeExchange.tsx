@@ -14,6 +14,7 @@ import LineContainer, {Line} from '../component/LineContainer';
 import {StackParamList} from '../MainPage';
 import {userInfoCheckRequest, userInfoCheckSuccess} from '../reducers/user/userInfo';
 import {IRootState} from '../reducers/index';
+import {partnerCodeCheckRequest} from '../reducers/user/partnerCheck';
 
 interface IProps {
   navigation: StackNavigationProp<StackParamList, 'CodeExchange'>;
@@ -23,8 +24,8 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   const dispatch = useDispatch();
   const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
   const {createCount} = useSelector((state: IRootState) => state.userReducer);
-  const [inputPartnerCode, setInputPartnerCode] = useState('');
-  const [isError, setIsError] = useState(false);
+  const {isPartnerCode} = useSelector((state: IRootState) => state.userReducer.userSign);
+  const [partnerCode, setPartnerCode] = useState('');
 
   const getRandomCode = () => {
     const first = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
@@ -43,12 +44,12 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   }, [createCount]);
 
   const onChangeInput = (e: string) => {
-    setInputPartnerCode(e);
+    setPartnerCode(e);
   };
 
-  const onSubmitInputCode = () => {
-    if (false) {
-      navigation.navigate('SelectDate');
+  const onSubmitInputCode = async () => {
+    if (userCode && userCode !== partnerCode) {
+      await dispatch(partnerCodeCheckRequest(userCode, partnerCode, navigation));
     }
   };
 
@@ -78,10 +79,10 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
         </LineContainer>
 
         {/* input code */}
-        <InputCode placeholder="상대방 코드 입력" value={inputPartnerCode} onChangeText={onChangeInput}></InputCode>
+        <InputCode placeholder="상대방 코드 입력" value={partnerCode} onChangeText={onChangeInput}></InputCode>
 
         {/* Error message */}
-        <TextR color={isError ? 'error' : 'white'} size={18.6666}>
+        <TextR color={isPartnerCode === false ? 'error' : 'white'} size={18.6666}>
           * 코드를 확인해주세요 *
         </TextR>
 

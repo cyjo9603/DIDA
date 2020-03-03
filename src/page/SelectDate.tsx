@@ -33,15 +33,11 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
 
         {/* show day */}
         <DayContainer>
-          <Heart
-            source={require('../../image/drawable-xxxhdpi/icon_heart.png')}
-          />
+          <Heart source={require('../../image/drawable-xxxhdpi/icon_heart.png')} />
           <Box marginLeft={48} marginRight={48}>
             <TextEB size={40} color="main">{`${dayInnerText}일`}</TextEB>
           </Box>
-          <Heart
-            source={require('../../image/drawable-xxxhdpi/icon_heart.png')}
-          />
+          <Heart source={require('../../image/drawable-xxxhdpi/icon_heart.png')} />
         </DayContainer>
 
         {/* show date */}

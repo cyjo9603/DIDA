@@ -6,13 +6,27 @@ import {memberAPI} from '../reqAddr';
 import {USER_SIGNUP_REQUEST} from '../reducers/user/userSignUp';
 import {USER_INFO_UPDATE_REQUEST, USER_INFO_CHECK_REQUEST, userInfoCheckSuccess, userInfoCheckFailure, IUserInfoCheckRequest} from '../reducers/user/userInfo';
 import {DELETE_USER_REQUEST} from '../reducers/user/deleteUser';
+import {PARTNER_CODE_CHECK_REQUEST, IPartnerCodeCheckRequest, partnerCodeCheckSuccess, partnerCodeCheckFailure} from '../reducers/user/partnerCheck';
 import {userSignUp} from '../reducers/user/userSignUp';
 import {USER_KEY} from '../storageKey';
 
 // API
 const signUpAPI = (code: string) => axios.post(memberAPI.add, {userCode: code, deviceInfo: 'android'});
 
-const infoUpdateAPI = () => axios.post(memberAPI.update);
+const infoUpdateAPI = (data: {userCode: string; firstDate?: Date; colorCode?: number; partnerCode?: string}) => {
+  if (data.firstDate) {
+    console.log('info update first date');
+    axios.post(memberAPI.update, {userCode: data.userCode, firstDate: data.firstDate});
+  }
+  if (data.colorCode) {
+    console.log('info update color code');
+    axios.post(memberAPI.update, {userCode: data.userCode, colorCode: data.colorCode});
+  }
+  if (data.partnerCode) {
+    console.log('info update partner code');
+    axios.post(memberAPI.update, {userCode: data.userCode, partnerCode: data.partnerCode});
+  }
+};
 
 const infoCheckAPI = (code: string) => axios.post(memberAPI.info, {userCode: code});
 
@@ -20,18 +34,30 @@ const deleteUserAPI = () => axios.post(memberAPI.delete);
 
 const getColorAPI = () => axios.post(memberAPI.getColor);
 
-// info update
-function* infoUpdate() {
+// info check partner code
+function* partnerCheck(action: IPartnerCodeCheckRequest) {
   try {
-    console.log('infoUpdate');
-    yield call(infoUpdateAPI);
+    console.log('partnerCheck');
+    const infoCheckValue = yield call(() => infoCheckAPI(action.data.partnerCode));
+    const check = yield infoCheckValue.data.userInfo.length === 0 ? false : true;
+    if (check) {
+      console.log('partner check true');
+      yield call(() => infoUpdateAPI(action.data));
+      yield put(partnerCodeCheckSuccess(action.data.partnerCode));
+      yield call(() => action.data.navigation.navigate('SelectDate'));
+    } else {
+      throw new Error('잘못된 값');
+    }
+    //yield call(infoUpdateAPI, {});
   } catch (e) {
+    console.log('partner check false');
+    yield put(partnerCodeCheckFailure());
     // error
   }
 }
 
-function* watchInfoUpdate() {
-  yield takeLatest(USER_INFO_UPDATE_REQUEST, infoUpdate);
+function* watchPartnerCheck() {
+  yield takeLatest(PARTNER_CODE_CHECK_REQUEST, partnerCheck);
 }
 
 // infoCheck
@@ -69,5 +95,5 @@ function* watchDeleteUser() {
 }
 
 export default function* userSaga() {
-  yield all([fork(watchInfoUpdate), fork(watchInfoCheck), fork(watchDeleteUser)]);
+  yield all([fork(watchPartnerCheck), fork(watchInfoCheck), fork(watchDeleteUser)]);
 }

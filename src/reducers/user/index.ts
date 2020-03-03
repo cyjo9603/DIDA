@@ -3,6 +3,7 @@ import TUserInfo, {USER_INFO_UPDATE_REQUEST, USER_INFO_CHECK_REQUEST, USER_INFO_
 import IDeleteUser, {DELETE_USER_REQUEST} from './deleteUser';
 import IGetLocalData, {GET_LOCAL_DATA} from './getLocalData';
 import ISetIsConnected, {SET_ISCONNECTED} from './setIsConnected';
+import TPartnerCodeCheck, {PARTNER_CODE_CHECK_REQUEST, PARTNER_CODE_CHECK_SUCCESS, PARTNER_CODE_CHECK_FAILURE} from './partnerCheck';
 
 export interface IUserState {
   isConnected: boolean | null;
@@ -12,6 +13,9 @@ export interface IUserState {
     selectColor?: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
     firstDate?: Date;
     isLocalData: Boolean;
+  };
+  userSign: {
+    isPartnerCode: Boolean | null;
   };
   createCount: number;
 }
@@ -39,11 +43,14 @@ const userInitialState: IUserState = {
     partnerCode: null,
     isLocalData: false,
   },
+  userSign: {
+    isPartnerCode: null,
+  },
   //  userInfo: dummyData,
   createCount: 0,
 };
 
-type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected;
+type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected | TPartnerCodeCheck;
 
 const userReducer = (state: IUserState = userInitialState, action: UserReducerAction) => {
   switch (action.type) {
@@ -112,6 +119,38 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
       return {
         ...state,
         userInfo,
+      };
+    }
+
+    // partner code check
+    case PARTNER_CODE_CHECK_REQUEST: {
+      const userSign = {...state.userSign};
+      userSign.isPartnerCode = null;
+      console.log('PARTNER_CODE_CHECK_REQUEST');
+      return {
+        ...state,
+        userSign,
+      };
+    }
+    case PARTNER_CODE_CHECK_SUCCESS: {
+      console.log('PARTNER_CODE_CHECK_SUCCESS');
+      const userInfo = {...state.userInfo};
+      const userSign = {...state.userSign};
+      userInfo.partnerCode = action.code;
+      userSign.isPartnerCode = true;
+      return {
+        ...state,
+        userInfo,
+        userSign,
+      };
+    }
+    case PARTNER_CODE_CHECK_FAILURE: {
+      const userSign = {...state.userSign};
+      userSign.isPartnerCode = false;
+      console.log('PARTNER_CODE_CHECK_FAILURE');
+      return {
+        ...state,
+        userSign,
       };
     }
 
