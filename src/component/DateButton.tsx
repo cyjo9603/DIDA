@@ -8,15 +8,35 @@ import TextB from '../commonComponent/TextComponent';
 interface IProps {
   openDatePicker: () => void;
   selectDate: string;
+  dayOfTheWeek: string;
 }
 
-const DateButton: FunctionComponent<IProps> = ({openDatePicker, selectDate}) => {
-  const [select, setSelect] = useState('2020.01.24 (금)');
+const transDayOfTheWeek = (dayOfTheWeek: string) => {
+  switch (dayOfTheWeek) {
+    case 'Sun':
+      return '일';
+    case 'Mon':
+      return '월';
+    case 'Tue':
+      return '화';
+    case 'Wed':
+      return '수';
+    case 'Thu':
+      return '목';
+    case 'Fri':
+      return '금';
+    case 'Sat':
+      return '토';
+    default:
+      return '';
+  }
+};
 
+const DateButton: FunctionComponent<IProps> = ({openDatePicker, selectDate, dayOfTheWeek}) => {
   return (
     <Button onPress={openDatePicker}>
       <TextB size={24} color="gray_02">
-        {select}
+        {`${selectDate} (${transDayOfTheWeek(dayOfTheWeek)})`}
       </TextB>
     </Button>
   );

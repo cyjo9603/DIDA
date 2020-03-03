@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 import Container from '../component/Container';
 import Box from '../commonComponent/Box';
@@ -25,7 +26,7 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
   const onChangeDate = (e: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    console.log(date);
+    console.log();
   };
 
   const showDatePicker = () => {
@@ -57,7 +58,7 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
 
         {/* show date */}
         <Box marginTop={42.6666}>
-          <DateButton openDatePicker={showDatePicker} selectDate="" />
+          <DateButton openDatePicker={showDatePicker} selectDate={moment(date).format('YYYY.MM.DD')} dayOfTheWeek={moment(date).format('ddd')} />
         </Box>
       </Container>
       <View>
