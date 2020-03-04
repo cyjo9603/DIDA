@@ -4,6 +4,7 @@ import IDeleteUser, {DELETE_USER_REQUEST} from './deleteUser';
 import IGetLocalData, {GET_LOCAL_DATA} from './getLocalData';
 import ISetIsConnected, {SET_ISCONNECTED} from './setIsConnected';
 import TPartnerCodeCheck, {PARTNER_CODE_CHECK_REQUEST, PARTNER_CODE_CHECK_SUCCESS, PARTNER_CODE_CHECK_FAILURE} from './partnerCheck';
+import IAddFirstDate, {ADD_FIRST_DATE} from './addFirstDate';
 
 export interface IUserState {
   isConnected: boolean | null;
@@ -16,25 +17,26 @@ export interface IUserState {
   };
   userSign: {
     isPartnerCode: Boolean | null;
+    partnerFirstDate: string | null;
   };
   createCount: number;
 }
 
-interface IDummy {
-  userCode?: string;
-  partnerCode?: string;
-  selectColor?: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
-  firstDate?: Date;
-  isLocalData: Boolean;
-}
+// interface IDummy {
+//   userCode?: string;
+//   partnerCode?: string;
+//   selectColor?: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
+//   firstDate?: Date;
+//   isLocalData: Boolean;
+// }
 
-const dummyData: IDummy = {
-  userCode: undefined,
-  partnerCode: 'T12345',
-  selectColor: 'n1',
-  firstDate: new Date(2020, 1, 2),
-  isLocalData: true,
-};
+// const dummyData: IDummy = {
+//   userCode: undefined,
+//   partnerCode: 'T12345',
+//   selectColor: 'n1',
+//   firstDate: new Date(2020, 1, 2),
+//   isLocalData: true,
+// };
 
 const userInitialState: IUserState = {
   isConnected: null,
@@ -45,12 +47,13 @@ const userInitialState: IUserState = {
   },
   userSign: {
     isPartnerCode: null,
+    partnerFirstDate: null,
   },
   //  userInfo: dummyData,
   createCount: 0,
 };
 
-type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected | TPartnerCodeCheck;
+type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected | TPartnerCodeCheck | IAddFirstDate;
 
 const userReducer = (state: IUserState = userInitialState, action: UserReducerAction) => {
   switch (action.type) {
@@ -138,6 +141,7 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
       const userSign = {...state.userSign};
       userInfo.partnerCode = action.code;
       userSign.isPartnerCode = true;
+      userSign.partnerFirstDate = action.partnerFirstDate;
       return {
         ...state,
         userInfo,
@@ -151,6 +155,14 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
       return {
         ...state,
         userSign,
+      };
+    }
+
+    // add firs date
+    case ADD_FIRST_DATE: {
+      console.log('ADD_FIRST_DATE');
+      return {
+        ...state,
       };
     }
 

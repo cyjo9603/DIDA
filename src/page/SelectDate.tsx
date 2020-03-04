@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -13,26 +14,42 @@ import LineContainer, {Line} from '../component/LineContainer';
 import DateButton from '../component/DateButton';
 
 import {StackParamList} from '../MainPage';
+import {IRootState} from '../reducers/index';
+import {addFirstDateRequest} from '../reducers/user/addFirstDate';
 
 interface IProps {
   navigation: StackNavigationProp<StackParamList, 'SelectColor'>;
 }
 
 const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const dispatch = useDispatch();
+  const {partnerFirstDate} = useSelector((state: IRootState) => state.userReducer.userSign);
+  const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const dayInnerText = 1;
 
   const onChangeDate = (e: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    console.log();
   };
 
   const showDatePicker = () => {
     setShow(true);
   };
 
+  const onSubmitInputFirstDate = () => {
+    const selectDate = moment(date).format('YYYY-MM-DD');
+    console.log(`select: ${selectDate}, partner: ${partnerFirstDate}`);
+    if (partnerFirstDate && partnerFirstDate !== selectDate + 'T00:00:00.000Z' && partnerFirstDate !== null) {
+      console.log('diff date');
+    } else if (userCode) {
+      console.log('same date');
+      dispatch(addFirstDateRequest(userCode, selectDate, navigation));
+    }
+  };
+
+  // () => navigation.navigate('SelectColor')
   return (
     <>
       <Container>
@@ -62,7 +79,7 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
         </Box>
       </Container>
       <View>
-        <BottomButton moveScreen={() => navigation.navigate('SelectColor')} />
+        <BottomButton moveScreen={onSubmitInputFirstDate} />
       </View>
     </>
   );

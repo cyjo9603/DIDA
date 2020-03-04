@@ -17,6 +17,7 @@ export interface IPartnerCodeCheckRequest {
 interface IPartnerCodeCheckSuccess {
   type: typeof PARTNER_CODE_CHECK_SUCCESS;
   code: string;
+  partnerFirstDate: string | null;
 }
 
 interface IPartnerCodeCheckFailure {
@@ -32,9 +33,10 @@ export const partnerCodeCheckRequest = (userCode: string, partnerCode: string, n
   },
 });
 
-export const partnerCodeCheckSuccess = (code: string) => ({
+export const partnerCodeCheckSuccess = (code: string, partnerFirstDate: string | null) => ({
   type: PARTNER_CODE_CHECK_SUCCESS,
   code,
+  partnerFirstDate,
 });
 
 export const partnerCodeCheckFailure = () => ({
