@@ -1,4 +1,4 @@
-import React, {useState, FunctionComponent} from 'react';
+import React, {FunctionComponent, useMemo, memo} from 'react';
 import styled from 'styled-components/native';
 
 import {ThemeType} from '../theme';
@@ -33,10 +33,14 @@ const transDayOfTheWeek = (dayOfTheWeek: string) => {
 };
 
 const DateButton: FunctionComponent<IProps> = ({openDatePicker, selectDate, dayOfTheWeek}) => {
+  const openDatePickerFunc = useMemo(() => openDatePicker, [openDatePicker]);
+  const date = useMemo(() => selectDate, [selectDate]);
+  const dotw = useMemo(() => transDayOfTheWeek(dayOfTheWeek), [dayOfTheWeek]);
+
   return (
-    <Button onPress={openDatePicker}>
+    <Button onPress={openDatePickerFunc}>
       <TextB size={24} color="gray_02">
-        {`${selectDate} (${transDayOfTheWeek(dayOfTheWeek)})`}
+        {`${date} (${dotw})`}
       </TextB>
     </Button>
   );
@@ -52,4 +56,4 @@ const Button = styled.TouchableOpacity<{theme: ThemeType}>`
   border: solid 2.6666px ${props => props.theme.itemColor.lightGray_01};
 `;
 
-export default DateButton;
+export default memo(DateButton);
