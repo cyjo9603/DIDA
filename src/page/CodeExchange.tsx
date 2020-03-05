@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback, memo} from 'react';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,21 +20,21 @@ interface IProps {
   navigation: StackNavigationProp<StackParamList, 'CodeExchange'>;
 }
 
+const getRandomCode = () => {
+  const first = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+  const number = (Math.random() * 100000).toFixed(0).substr(0, 5);
+  const digits = Array(5 - number.length)
+    .fill('0')
+    .join('');
+  return `${first}${digits}${number}`;
+};
+
 const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   const dispatch = useDispatch();
   const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
   const {createCount} = useSelector((state: IRootState) => state.userReducer);
   const {isPartnerCode} = useSelector((state: IRootState) => state.userReducer.userSign);
   const [partnerCode, setPartnerCode] = useState('');
-
-  const getRandomCode = () => {
-    const first = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    const number = (Math.random() * 100000).toFixed(0).substr(0, 5);
-    const digits = Array(5 - number.length)
-      .fill('0')
-      .join('');
-    return `${first}${digits}${number}`;
-  };
 
   useEffect(() => {
     if (userCode === null) {
@@ -43,15 +43,15 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
     }
   }, [createCount]);
 
-  const onChangeInput = (e: string) => {
+  const onChangeInput = useCallback((e: string) => {
     setPartnerCode(e);
-  };
+  }, []);
 
-  const onSubmitInputCode = async () => {
+  const onSubmitInputCode = useCallback(async () => {
     if (userCode && userCode !== partnerCode) {
       await dispatch(partnerCodeCheckRequest(userCode, partnerCode, navigation));
     }
-  };
+  }, [userCode, partnerCode]);
 
   return (
     <>
@@ -130,4 +130,4 @@ const InputCode = styled.TextInput<{theme: ThemeType}>`
   margin-bottom: 21.3333px;
 `;
 
-export default CodeExchange;
+export default memo(CodeExchange);
