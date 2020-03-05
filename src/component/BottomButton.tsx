@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useMemo, memo} from 'react';
 import styled from 'styled-components/native';
 
 import {ThemeType} from '../theme';
 
 import TextEB from '../commonComponent/TextComponent';
 
-const BottomButton: React.FunctionComponent<{moveScreen: () => void}> = ({
-  moveScreen,
-}) => {
+const BottomButton: React.FunctionComponent<{moveScreen: () => void}> = ({moveScreen}) => {
+  const moveScreenFunc = useMemo(() => moveScreen, [moveScreen]);
+
   return (
-    <MoveButton onPress={moveScreen}>
+    <MoveButton onPress={moveScreenFunc}>
       <TextEB size={20} color="white">
         다음
       </TextEB>
@@ -25,4 +25,4 @@ const MoveButton = styled.TouchableOpacity<{theme: ThemeType}>`
   align-items: center;
 `;
 
-export default BottomButton;
+export default memo(BottomButton);
