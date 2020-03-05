@@ -5,13 +5,14 @@ import IGetLocalData, {GET_LOCAL_DATA} from './getLocalData';
 import ISetIsConnected, {SET_ISCONNECTED} from './setIsConnected';
 import TPartnerCodeCheck, {PARTNER_CODE_CHECK_REQUEST, PARTNER_CODE_CHECK_SUCCESS, PARTNER_CODE_CHECK_FAILURE} from './partnerCheck';
 import IAddFirstDate, {ADD_FIRST_DATE} from './addFirstDate';
+import IAddUserColor, {ADD_USER_COLOR} from './addColor';
 
 export interface IUserState {
   isConnected: boolean | null;
   userInfo: {
     userCode: string | null;
     partnerCode: string | null;
-    selectColor?: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
+    selectColor?: number;
     firstDate?: Date;
     isLocalData: Boolean;
   };
@@ -53,7 +54,7 @@ const userInitialState: IUserState = {
   createCount: 0,
 };
 
-type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected | TPartnerCodeCheck | IAddFirstDate;
+type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected | TPartnerCodeCheck | IAddFirstDate | IAddUserColor;
 
 const userReducer = (state: IUserState = userInitialState, action: UserReducerAction) => {
   switch (action.type) {
@@ -161,6 +162,16 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
     // add firs date
     case ADD_FIRST_DATE: {
       console.log('ADD_FIRST_DATE');
+      return {
+        ...state,
+      };
+    }
+
+    // add user color
+    case ADD_USER_COLOR: {
+      console.log('ADD_USER_COLOR');
+      const userInfo = state.userInfo;
+      userInfo.selectColor = action.colorId;
       return {
         ...state,
       };

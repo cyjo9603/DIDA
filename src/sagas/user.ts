@@ -3,12 +3,11 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {memberAPI} from '../reqAddr';
-import {USER_SIGNUP_REQUEST} from '../reducers/user/userSignUp';
-import {USER_INFO_UPDATE_REQUEST, USER_INFO_CHECK_REQUEST, userInfoCheckSuccess, userInfoCheckFailure, IUserInfoCheckRequest} from '../reducers/user/userInfo';
+import {USER_INFO_CHECK_REQUEST, userInfoCheckSuccess, userInfoCheckFailure, IUserInfoCheckRequest} from '../reducers/user/userInfo';
 import {DELETE_USER_REQUEST} from '../reducers/user/deleteUser';
 import {PARTNER_CODE_CHECK_REQUEST, IPartnerCodeCheckRequest, partnerCodeCheckSuccess, partnerCodeCheckFailure} from '../reducers/user/partnerCheck';
 import IAddFirstDate, {ADD_FIRST_DATE, addFirstDateRequest} from '../reducers/user/addFirstDate';
-import {userSignUp} from '../reducers/user/userSignUp';
+import IAddUserColor, {ADD_USER_COLOR} from '../reducers/user/addColor';
 import {USER_KEY} from '../storageKey';
 
 // API
@@ -17,10 +16,12 @@ const signUpAPI = (code: string) => axios.post(memberAPI.add, {userCode: code, d
 const infoUpdateAPI = (data: {userCode: string; firstDate?: string; colorCode?: number; partnerCode?: string}) => {
   if (data.firstDate) {
     console.log('info update first date');
+    console.log(`userCode: ${data.userCode}, colorCode: ${data.firstDate}`);
     return axios.post(memberAPI.update, {userCode: data.userCode, firstDate: data.firstDate});
   }
   if (data.colorCode) {
     console.log('info update color code');
+    console.log(`userCode: ${data.userCode}, colorCode: ${data.colorCode}`);
     return axios.post(memberAPI.update, {userCode: data.userCode, colorCode: data.colorCode});
   }
   if (data.partnerCode) {
@@ -34,11 +35,26 @@ const infoCheckAPI = (code: string) => axios.post(memberAPI.info, {userCode: cod
 const deleteUserAPI = () => axios.post(memberAPI.delete);
 
 const getColorAPI = () => axios.post(memberAPI.getColor);
+
+// add user color
+function* addUserColor(action: IAddUserColor) {
+  try {
+    console.log('addUserColor');
+    yield call(() => infoUpdateAPI({userCode: action.userCode, colorCode: action.colorId}));
+  } catch (e) {
+    console.log('addUserColor error');
+  }
+}
+
+function* watchAddUserColor() {
+  yield takeLatest(ADD_USER_COLOR, addUserColor);
+}
+
 // add first date
 function* addFirstDate(action: IAddFirstDate) {
   try {
     console.log('addFirstDate');
-    //yield call(() => infoUpdateAPI({userCode: action.userCode, firstDate: action.date}));
+    yield call(() => infoUpdateAPI({userCode: action.userCode, firstDate: action.date}));
     yield call(() => action.navigation.navigate('SelectColor'));
   } catch (e) {
     console.log('addFirstDate error');
@@ -111,5 +127,5 @@ function* watchDeleteUser() {
 }
 
 export default function* userSaga() {
-  yield all([fork(watchPartnerCheck), fork(watchInfoCheck), fork(watchDeleteUser), fork(watchAddFirstDate)]);
+  yield all([fork(watchPartnerCheck), fork(watchInfoCheck), fork(watchDeleteUser), fork(watchAddFirstDate), fork(watchAddUserColor)]);
 }

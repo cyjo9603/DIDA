@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 
@@ -10,12 +11,25 @@ import TextB from '../commonComponent/TextComponent';
 import CurrentColor from '../component/CurrentColor';
 import BottomButton from '../component/BottomButton';
 
+import {IRootState} from '../reducers/index';
+import {addUserColorRequest} from '../reducers/user/addColor';
+
 type ColorKeys = keyof typeof theme.selectColor;
 
 const SelectColor = () => {
+  const dispatch = useDispatch();
+  const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
   const [color, setColor] = useState<ColorKeys>('n1');
 
   const getColor = (number: number) => `n${number + 1}` as ColorKeys;
+
+  const onSubmitInputColor = () => {
+    const colorId = parseInt(color.substr(1, 1));
+    console.log(colorId);
+    if (userCode) {
+      dispatch(addUserColorRequest(userCode, colorId));
+    }
+  };
 
   return (
     <>
@@ -40,13 +54,13 @@ const SelectColor = () => {
                 onPress={() => {
                   setColor(getColor(i));
                 }}>
-                <ColorItem colorIndex={`n${i + 1}`} />
+                <ColorItem key={`colorId_${i}`} colorIndex={`n${i + 1}`} />
               </ColorContainer>
             ))}
         </Palette>
       </Container>
       <View>
-        <BottomButton />
+        <BottomButton moveScreen={onSubmitInputColor} />
       </View>
     </>
   );
@@ -77,8 +91,7 @@ const ColorItem = styled.View<{
   width: 80px;
   height: 80px;
   border-radius: 40px;
-  background-color: ${(props: any) =>
-    props.theme.selectColor[props.colorIndex]};
+  background-color: ${(props: any) => props.theme.selectColor[props.colorIndex]};
 `;
 
 export default SelectColor;
