@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo, useCallback, useEffect, memo} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
@@ -27,18 +27,25 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
   const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  const dayInnerText = 1;
+  const dayInnerText = useMemo(() => Math.floor((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24)) + 1, [date]);
+  const selectDate = useMemo(() => moment(date).format('YYYY.MM.DD'), [date]);
+  const dayOfTheWeek = useMemo(() => moment(date).format('ddd'), [date]);
+  const heartImage = useMemo(() => require('../../image/drawable-xxxhdpi/icon_heart.png'), []);
 
-  const onChangeDate = (e: any, selectedDate: any) => {
+  const onChangeDate = useCallback((e: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-  };
+  }, []);
 
-  const showDatePicker = () => {
+  const showDatePicker = useCallback(() => {
     setShow(true);
-  };
+  }, []);
 
-  const onSubmitInputFirstDate = () => {
+  useEffect(() => {
+    setShow(false);
+  }, [date]);
+
+  const onSubmitInputFirstDate = useCallback(() => {
     const selectDate = moment(date).format('YYYY-MM-DD');
     console.log(`select: ${selectDate}, partner: ${partnerFirstDate}`);
     if (partnerFirstDate && partnerFirstDate !== selectDate + 'T00:00:00.000Z' && partnerFirstDate !== null) {
@@ -47,7 +54,7 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
       console.log('same date');
       dispatch(addFirstDateRequest(userCode, selectDate, navigation));
     }
-  };
+  }, [date, partnerFirstDate, userCode]);
 
   // () => navigation.navigate('SelectColor')
   return (
@@ -65,17 +72,17 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
 
         {/* show day */}
         <DayContainer>
-          <Heart source={require('../../image/drawable-xxxhdpi/icon_heart.png')} />
+          <Heart source={heartImage} />
           <Box marginLeft={48} marginRight={48}>
             <TextEB size={40} color="main">{`${dayInnerText}일`}</TextEB>
           </Box>
-          <Heart source={require('../../image/drawable-xxxhdpi/icon_heart.png')} />
+          <Heart source={heartImage} />
         </DayContainer>
         {show && <DateTimePicker value={date} display="spinner" onChange={onChangeDate} maximumDate={new Date()} />}
 
         {/* show date */}
         <Box marginTop={42.6666}>
-          <DateButton openDatePicker={showDatePicker} selectDate={moment(date).format('YYYY.MM.DD')} dayOfTheWeek={moment(date).format('ddd')} />
+          <DateButton openDatePicker={showDatePicker} selectDate={selectDate} dayOfTheWeek={dayOfTheWeek} />
         </Box>
       </Container>
       <View>
@@ -97,4 +104,4 @@ const Heart = styled.Image`
   height: 24px;
 `;
 
-export default SelectDate;
+export default memo(SelectDate);
