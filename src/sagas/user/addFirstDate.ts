@@ -1,20 +1,40 @@
-import {call, takeLatest} from 'redux-saga/effects';
+import {call, takeLatest, put, select} from 'redux-saga/effects';
+import moment from 'moment';
 
-import IAddFirstDate, {ADD_FIRST_DATE} from '../../reducers/user/addFirstDate';
+import {
+  AddFirstDateRequest,
+  ADD_FIRST_DATE_REQUEST,
+  addFirstDateSuccess,
+  addFirstDateFailure,
+} from '../../reducers/user/addFirstDate';
 import {infoUpdateAPI} from './partnerCheck';
+import {infoCheckAPI} from './infoCheck';
 
-function* addFirstDate(action: IAddFirstDate) {
+function* addFirstDate(action: AddFirstDateRequest) {
   try {
     console.log('addFirstDate');
-    yield call(() => infoUpdateAPI({userCode: action.userCode, firstDate: action.date}));
-    yield call(() => action.navigation.navigate('SelectColor'));
+    const {userReducer} = yield select();
+    const partnerInfo = yield call(infoCheckAPI, userReducer.userInfo.partnerCode);
+    const partnerDate = moment(partnerInfo.data.userInfo[0].firstDate).format('YYYY-MM-DD');
+    if (partnerDate === action.date) {
+      const result = yield call(infoUpdateAPI, {userCode: action.userCode, firstDate: action.date});
+      if (result.data.success) {
+        yield call(() => action.navigation.navigate('SelectColor'));
+        yield put(addFirstDateSuccess(action.date));
+      } else {
+        yield put(addFirstDateFailure('fail'));
+      }
+    } else {
+      yield put(addFirstDateFailure('fail', true));
+    }
   } catch (e) {
     console.log('addFirstDate error');
+    yield put(addFirstDateFailure(e));
   }
 }
 
 function* watchAddFirstDate() {
-  yield takeLatest(ADD_FIRST_DATE, addFirstDate);
+  yield takeLatest(ADD_FIRST_DATE_REQUEST, addFirstDate);
 }
 
 export default watchAddFirstDate;
