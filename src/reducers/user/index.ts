@@ -1,6 +1,5 @@
 import produce from 'immer';
 
-import {UserSignUp, USER_SIGNUP_REQUEST} from './userSignUp';
 import {
   UserInfoUpdate,
   UserInfoCheckRequest,
@@ -71,7 +70,6 @@ const userInitialState: IUserState = {
 };
 
 type UserReducerAction =
-  | UserSignUp
   | UserInfoUpdate
   | UserInfoCheckRequest
   | UserInfoCheckSuccess
@@ -94,8 +92,6 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
   return produce(state, (draft: IUserState) => {
     switch (action.type) {
       // signup
-      case USER_SIGNUP_REQUEST:
-        break;
 
       //  user info update
       case USER_INFO_UPDATE_REQUEST:

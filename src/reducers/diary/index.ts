@@ -1,73 +1,103 @@
-import IWriteDiary, {WRITE_DIARY_REQUEST} from './writeDiary';
-import IUpdateDiary, {UPDATE_DIARY_REQUEST} from './updateDiary';
-import IDeleteDiary, {DELETE_DIARY_REQUEST} from './deleteDiary';
-import TGetDiaryList, {GET_DIARY_LIST_REQUEST, GET_DIARY_LIST_SUCCESS, GET_DIARY_LIST_FAILURE} from './getDiaryList';
+import produce from 'immer';
 
-interface IDiaryContents {
+import {
+  WriteDiaryRequest,
+  WriteDiarySuccess,
+  WriteDiaryFailure,
+  WRITE_DIARY_REQUEST,
+  WRITE_DIARY_SUCCESS,
+  WRITE_DIARY_FAILURE,
+} from './writeDiary';
+import {
+  UpdateDiaryRequest,
+  UpdateDiarySuccess,
+  UpdateDiaryFailure,
+  UPDATE_DIARY_REQUEST,
+  UPDATE_DIARY_SUCCESS,
+  UPDATE_DIARY_FAILURE,
+} from './updateDiary';
+import {
+  DeleteDiaryRequest,
+  DeleteDiarySuccess,
+  DeleteDiaryFailure,
+  DELETE_DIARY_REQUEST,
+  DELETE_DIARY_SUCCESS,
+  DELETE_DIARY_FAILURE,
+} from './deleteDiary';
+import {
+  GetDiaryListRequest,
+  GetDiaryListSuccess,
+  GetDiaryListFailure,
+  GET_DIARY_LIST_REQUEST,
+  GET_DIARY_LIST_SUCCESS,
+  GET_DIARY_LIST_FAILURE,
+} from './getDiaryList';
+
+interface DiaryContents {
   diaryNumber: number;
   contents: string;
   score: number;
 }
 
-interface IDiaryData {
+interface DiaryData {
   writeDate: Date;
-  userDiary: IDiaryContents;
-  partnerDiary: IDiaryContents;
+  userDiary: DiaryContents;
+  partnerDiary: DiaryContents;
 }
 
-export interface IDiaryState {
-  diaryLists: IDiaryData[];
+export interface DiaryState {
+  diaryLists: DiaryData[];
 }
 
-const diaryInitailState: IDiaryState = {
+const diaryInitailState: DiaryState = {
   diaryLists: [],
 };
 
-type DairyReducerAction = IWriteDiary | IUpdateDiary | IDeleteDiary | TGetDiaryList;
+type DairyReducerAction =
+  | WriteDiaryRequest
+  | WriteDiarySuccess
+  | WriteDiaryFailure
+  | UpdateDiaryRequest
+  | UpdateDiarySuccess
+  | UpdateDiaryFailure
+  | DeleteDiaryRequest
+  | DeleteDiarySuccess
+  | DeleteDiaryFailure
+  | GetDiaryListRequest
+  | GetDiaryListSuccess
+  | GetDiaryListFailure;
 
-const diaryReducer = (state: IDiaryState = diaryInitailState, action: DairyReducerAction) => {
-  switch (action.type) {
-    // write diary
-    case WRITE_DIARY_REQUEST: {
-      return {
-        ...state,
-      };
-    }
+const diaryReducer = (state: DiaryState = diaryInitailState, action: DairyReducerAction) => {
+  return produce(state, (/*draft: DiaryState*/) => {
+    switch (action.type) {
+      // write diary
+      case WRITE_DIARY_REQUEST:
+      case WRITE_DIARY_SUCCESS:
+      case WRITE_DIARY_FAILURE:
+        break;
 
-    // update diary
-    case UPDATE_DIARY_REQUEST: {
-      return {
-        ...state,
-      };
-    }
+      // update diary
+      case UPDATE_DIARY_REQUEST:
+      case UPDATE_DIARY_SUCCESS:
+      case UPDATE_DIARY_FAILURE:
+        break;
 
-    // delete diary
-    case DELETE_DIARY_REQUEST: {
-      return {
-        ...state,
-      };
-    }
+      // delete diary
+      case DELETE_DIARY_REQUEST:
+      case DELETE_DIARY_SUCCESS:
+      case DELETE_DIARY_FAILURE:
+        break;
 
-    // get diary list
-    case GET_DIARY_LIST_REQUEST: {
-      return {
-        ...state,
-      };
-    }
-    case GET_DIARY_LIST_SUCCESS: {
-      return {
-        ...state,
-      };
-    }
-    case GET_DIARY_LIST_FAILURE: {
-      return {
-        ...state,
-      };
-    }
+      // get diary list
+      case GET_DIARY_LIST_REQUEST:
+      case GET_DIARY_LIST_SUCCESS:
+      case GET_DIARY_LIST_FAILURE:
+        break;
 
-    default:
-      return {...state};
-  }
+      default:
+        break;
+    }
+  });
 };
 
 export default diaryReducer;
