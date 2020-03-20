@@ -1,11 +1,36 @@
-import IUserSignUp, {USER_SIGNUP_REQUEST} from './userSignUp';
-import TUserInfo, {USER_INFO_UPDATE_REQUEST, USER_INFO_CHECK_REQUEST, USER_INFO_CHECK_SUCCESS, USER_INFO_CHECK_FAILURE} from './userInfo';
-import IDeleteUser, {DELETE_USER_REQUEST} from './deleteUser';
-import IGetLocalData, {GET_LOCAL_DATA} from './getLocalData';
-import ISetIsConnected, {SET_ISCONNECTED} from './setIsConnected';
-import TPartnerCodeCheck, {PARTNER_CODE_CHECK_REQUEST, PARTNER_CODE_CHECK_SUCCESS, PARTNER_CODE_CHECK_FAILURE} from './partnerCheck';
-import IAddFirstDate, {ADD_FIRST_DATE} from './addFirstDate';
-import IAddUserColor, {ADD_USER_COLOR} from './addColor';
+import produce from 'immer';
+
+import {UserSignUp, USER_SIGNUP_REQUEST} from './userSignUp';
+import {
+  UserInfoUpdate,
+  UserInfoCheckRequest,
+  UserInfoCheckSuccess,
+  UserInfoCheckFailure,
+  USER_INFO_UPDATE_REQUEST,
+  USER_INFO_CHECK_REQUEST,
+  USER_INFO_CHECK_SUCCESS,
+  USER_INFO_CHECK_FAILURE,
+} from './userInfo';
+import {DeleteUser, DELETE_USER_REQUEST} from './deleteUser';
+import {GetLocalData, GET_LOCAL_DATA} from './getLocalData';
+import {SetIsConnected, SET_ISCONNECTED} from './setIsConnected';
+import {
+  PartnerCodeCheckRequest,
+  PartnerCodeCheckSuccess,
+  PartnerCodeCheckFailure,
+  PARTNER_CODE_CHECK_REQUEST,
+  PARTNER_CODE_CHECK_SUCCESS,
+  PARTNER_CODE_CHECK_FAILURE,
+} from './partnerCheck';
+import {AddFirstDate, ADD_FIRST_DATE} from './addFirstDate';
+import {
+  AddUserColorRequest,
+  AddUserColorSuccess,
+  AddUserColorFailure,
+  ADD_USER_COLOR_REQUEST,
+  ADD_USER_COLOR_SUCCESS,
+  ADD_USER_COLOR_FAILURE,
+} from './addColor';
 
 export interface IUserState {
   isConnected: boolean | null;
@@ -23,22 +48,6 @@ export interface IUserState {
   createCount: number;
 }
 
-// interface IDummy {
-//   userCode?: string;
-//   partnerCode?: string;
-//   selectColor?: 'n1' | 'n2' | 'n3' | 'n4' | 'n5' | 'n6' | 'n7' | 'n8';
-//   firstDate?: Date;
-//   isLocalData: Boolean;
-// }
-
-// const dummyData: IDummy = {
-//   userCode: undefined,
-//   partnerCode: 'T12345',
-//   selectColor: 'n1',
-//   firstDate: new Date(2020, 1, 2),
-//   isLocalData: true,
-// };
-
 const userInitialState: IUserState = {
   isConnected: null,
   userInfo: {
@@ -50,144 +59,118 @@ const userInitialState: IUserState = {
     isPartnerCode: null,
     partnerFirstDate: null,
   },
-  //  userInfo: dummyData,
   createCount: 0,
 };
 
-type UserReducerAction = IUserSignUp | TUserInfo | IDeleteUser | IGetLocalData | ISetIsConnected | TPartnerCodeCheck | IAddFirstDate | IAddUserColor;
+type UserReducerAction =
+  | UserSignUp
+  | UserInfoUpdate
+  | UserInfoCheckRequest
+  | UserInfoCheckSuccess
+  | SetIsConnected
+  | UserInfoCheckFailure
+  | DeleteUser
+  | GetLocalData
+  | PartnerCodeCheckRequest
+  | PartnerCodeCheckSuccess
+  | PartnerCodeCheckFailure
+  | AddFirstDate
+  | AddUserColorRequest
+  | AddUserColorSuccess
+  | AddUserColorFailure;
 
 const userReducer = (state: IUserState = userInitialState, action: UserReducerAction) => {
-  switch (action.type) {
-    // signup
-    case USER_SIGNUP_REQUEST: {
-      console.log('USER_SIGNUP_REQUEST');
-      return {
-        ...state,
-      };
-    }
+  return produce(state, (draft: IUserState) => {
+    switch (action.type) {
+      // signup
+      case USER_SIGNUP_REQUEST:
+        console.log('USER_SIGNUP_REQUEST');
+        break;
 
-    //  user info update
-    case USER_INFO_UPDATE_REQUEST: {
-      console.log('USER_INFO_UPDATE_REQUEST');
-      return {
-        ...state,
-      };
-    }
+      //  user info update
+      case USER_INFO_UPDATE_REQUEST:
+        console.log('USER_INFO_UPDATE_REQUEST');
+        break;
 
-    // user info check
-    case USER_INFO_CHECK_REQUEST: {
-      console.log('USER_INFO_CHECK_REQUEST');
-      return {
-        ...state,
-      };
-    }
-    case USER_INFO_CHECK_SUCCESS: {
-      console.log('USER_INFO_CHECK_SUCCESS');
-      if (!action.data.check) {
-        const userInfo = {...state.userInfo};
-        userInfo.userCode = action.data.code;
-        return {
-          ...state,
-          userInfo,
-        };
-      } else {
-        0;
-        return {
-          ...state,
-          createCount: state.createCount + 1,
-        };
+      // user info check
+      case USER_INFO_CHECK_REQUEST:
+        console.log('USER_INFO_CHECK_REQUEST');
+        break;
+
+      case USER_INFO_CHECK_SUCCESS: {
+        console.log('USER_INFO_CHECK_SUCCESS');
+        if (!action.data.check) {
+          draft.userInfo.userCode = action.data.code;
+          break;
+        } else {
+          draft.createCount++;
+          break;
+        }
       }
-    }
-    case USER_INFO_CHECK_FAILURE: {
-      console.log('USER_INFO_CHECK_FAILURE');
-      return {
-        ...state,
-      };
-    }
+      case USER_INFO_CHECK_FAILURE:
+        console.log('USER_INFO_CHECK_FAILURE');
+        break;
 
-    // delete user info
-    case DELETE_USER_REQUEST: {
-      console.log('DELETE_USER_REQUEST');
-      return {
-        ...state,
-      };
-    }
+      // delete user info
+      case DELETE_USER_REQUEST:
+        console.log('DELETE_USER_REQUEST');
+        break;
 
-    // get local data
-    case GET_LOCAL_DATA: {
-      console.log('GET_LOCAL_DATA');
-      const userInfo = {...state.userInfo};
-      userInfo.userCode = action.data.userCode;
-      userInfo.partnerCode = action.data.partnerCode;
-      userInfo.isLocalData = true;
-      return {
-        ...state,
-        userInfo,
-      };
-    }
+      // get local data
+      case GET_LOCAL_DATA: {
+        console.log('GET_LOCAL_DATA');
+        draft.userInfo.userCode = action.data.userCode;
+        draft.userInfo.partnerCode = action.data.partnerCode;
+        draft.userInfo.isLocalData = true;
+        break;
+      }
 
-    // partner code check
-    case PARTNER_CODE_CHECK_REQUEST: {
-      const userSign = {...state.userSign};
-      userSign.isPartnerCode = null;
-      console.log('PARTNER_CODE_CHECK_REQUEST');
-      return {
-        ...state,
-        userSign,
-      };
-    }
-    case PARTNER_CODE_CHECK_SUCCESS: {
-      console.log('PARTNER_CODE_CHECK_SUCCESS');
-      const userInfo = {...state.userInfo};
-      const userSign = {...state.userSign};
-      userInfo.partnerCode = action.code;
-      userSign.isPartnerCode = true;
-      userSign.partnerFirstDate = action.partnerFirstDate;
-      return {
-        ...state,
-        userInfo,
-        userSign,
-      };
-    }
-    case PARTNER_CODE_CHECK_FAILURE: {
-      const userSign = {...state.userSign};
-      userSign.isPartnerCode = false;
-      console.log('PARTNER_CODE_CHECK_FAILURE');
-      return {
-        ...state,
-        userSign,
-      };
-    }
+      // partner code check
+      case PARTNER_CODE_CHECK_REQUEST: {
+        console.log('PARTNER_CODE_CHECK_REQUEST');
+        draft.userSign.isPartnerCode = null;
+        break;
+      }
+      case PARTNER_CODE_CHECK_SUCCESS: {
+        console.log('PARTNER_CODE_CHECK_SUCCESS');
+        draft.userInfo.partnerCode = action.code;
+        draft.userSign.isPartnerCode = true;
+        draft.userSign.partnerFirstDate = action.partnerFirstDate;
+        break;
+      }
+      case PARTNER_CODE_CHECK_FAILURE: {
+        console.log('PARTNER_CODE_CHECK_FAILURE');
+        draft.userSign.isPartnerCode = false;
+        break;
+      }
 
-    // add firs date
-    case ADD_FIRST_DATE: {
-      console.log('ADD_FIRST_DATE');
-      return {
-        ...state,
-      };
-    }
+      // add firs date
+      case ADD_FIRST_DATE:
+        console.log('ADD_FIRST_DATE');
+        break;
 
-    // add user color
-    case ADD_USER_COLOR: {
-      console.log('ADD_USER_COLOR');
-      const userInfo = state.userInfo;
-      userInfo.selectColor = action.colorId;
-      return {
-        ...state,
-      };
-    }
+      // add user color
+      case ADD_USER_COLOR_REQUEST:
+      case ADD_USER_COLOR_FAILURE:
+        console.log('ADD_USER_COLOR');
+        break;
 
-    // set isConnected
-    case SET_ISCONNECTED: {
-      return {
-        ...state,
-        isConnected: action.check,
-      };
-    }
+      case ADD_USER_COLOR_SUCCESS:
+        console.log('ADD_USER_COLOR_SUCCESS');
+        draft.userInfo.selectColor = action.colorNum;
+        break;
 
-    default:
-      return {...state};
-  }
+      // set isConnected
+      case SET_ISCONNECTED: {
+        console.log('SET_ISCONNECTED');
+        draft.isConnected = action.check;
+        break;
+      }
+
+      default:
+        break;
+    }
+  });
 };
 
 export default userReducer;
