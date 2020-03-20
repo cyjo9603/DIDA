@@ -5,6 +5,7 @@ import watchInfoCheck from './infoCheck';
 import watchDeleteUser from './deleteUser';
 import watchAddFirstDate from './addFirstDate';
 import watchAddUserColor from './addUserColor';
+import watchGetLocalData from './getLocalData';
 
 export default function* userSaga() {
   yield all([
@@ -13,5 +14,6 @@ export default function* userSaga() {
     fork(watchDeleteUser),
     fork(watchAddFirstDate),
     fork(watchAddUserColor),
+    fork(watchGetLocalData),
   ]);
 }

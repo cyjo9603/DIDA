@@ -12,7 +12,14 @@ import {
   USER_INFO_CHECK_FAILURE,
 } from './userInfo';
 import {DeleteUser, DELETE_USER_REQUEST} from './deleteUser';
-import {GetLocalData, GET_LOCAL_DATA} from './getLocalData';
+import {
+  GetLocalDataRequest,
+  GetLocalDataSuccess,
+  GetLocalDataFailure,
+  GET_LOCALDATA_REQUEST,
+  GET_LOCALDATA_SUCCESS,
+  GET_LOCALDATA_FAILURE,
+} from './getLocalData';
 import {
   PartnerCodeCheckRequest,
   PartnerCodeCheckSuccess,
@@ -70,7 +77,9 @@ type UserReducerAction =
   | UserInfoCheckSuccess
   | UserInfoCheckFailure
   | DeleteUser
-  | GetLocalData
+  | GetLocalDataRequest
+  | GetLocalDataSuccess
+  | GetLocalDataFailure
   | PartnerCodeCheckRequest
   | PartnerCodeCheckSuccess
   | PartnerCodeCheckFailure
@@ -113,10 +122,18 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
         break;
 
       // get local data
-      case GET_LOCAL_DATA: {
-        draft.userInfo.userCode = action.userCode || 'NULL';
+      case GET_LOCALDATA_REQUEST:
         break;
-      }
+      case GET_LOCALDATA_SUCCESS:
+        draft.userInfo = action.data;
+        break;
+      case GET_LOCALDATA_FAILURE:
+        if (action.userCode) {
+          draft.userInfo.userCode = action.userCode;
+        } else {
+          draft.userInfo.userCode = 'LOADING';
+        }
+        break;
 
       // partner code check
       case PARTNER_CODE_CHECK_REQUEST:
