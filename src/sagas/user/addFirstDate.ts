@@ -15,8 +15,10 @@ function* addFirstDate(action: AddFirstDateRequest) {
     console.log('addFirstDate');
     const {userReducer} = yield select();
     const partnerInfo = yield call(infoCheckAPI, userReducer.userInfo.partnerCode);
-    const partnerDate = moment(partnerInfo.data.userInfo[0].firstDate).format('YYYY-MM-DD');
-    if (partnerDate === action.date) {
+    const partnerDate = partnerInfo.data.userInfo[0].firstDate;
+    const dateFormat = moment(partnerDate).format('YYYY-MM-DD');
+
+    if (!partnerDate || dateFormat === action.date) {
       const result = yield call(infoUpdateAPI, {userCode: action.userCode, firstDate: action.date});
       if (result.data.success) {
         yield call(() => action.navigation.navigate('SelectColor'));

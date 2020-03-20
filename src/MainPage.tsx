@@ -30,7 +30,7 @@ const MainPage = () => {
     <>
       {userCode === null ? (
         <Splash />
-      ) : userCode !== 'NULL' && partnerCode && selectColor && firstDate ? (
+      ) : userCode !== 'LOADING' && partnerCode && selectColor && firstDate ? (
         <Main />
       ) : (
         <NavigationContainer>

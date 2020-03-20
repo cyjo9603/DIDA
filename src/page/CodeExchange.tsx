@@ -37,11 +37,11 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
   const [partnerCode, setPartnerCode] = useState('');
 
   useEffect(() => {
-    if (userCode === null) {
+    if (userCode === 'LOADING') {
       const code = getRandomCode();
       dispatch(userInfoCheckRequest(code));
     }
-  }, [createCount]);
+  }, [createCount, userCode]);
 
   const onChangeInput = useCallback((e: string) => {
     setPartnerCode(e);
@@ -74,7 +74,7 @@ const CodeExchange: React.FunctionComponent<IProps> = ({navigation}) => {
         <LineContainer>
           <Line lineColor="#ffe6e9" width="160" height="13.3333" />
           <TextEB size={40} color="main">
-            {userCode ? userCode : 'LOADING'}
+            {userCode}
           </TextEB>
         </LineContainer>
 
