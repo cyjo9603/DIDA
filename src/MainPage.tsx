@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -21,13 +21,16 @@ export type StackParamList = {
 const Stack = createStackNavigator<StackParamList>();
 
 const MainPage = () => {
-  const {isConnected} = useSelector((state: IRootState) => state.userReducer);
+  const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const {partnerCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const {selectColor} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const {firstDate} = useSelector((state: IRootState) => state.userReducer.userInfo);
 
   return (
     <>
-      {isConnected === null ? (
+      {userCode === null ? (
         <Splash />
-      ) : isConnected ? (
+      ) : userCode !== 'NULL' && partnerCode && selectColor && firstDate ? (
         <Main />
       ) : (
         <NavigationContainer>
