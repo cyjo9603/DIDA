@@ -16,16 +16,16 @@ const theme = {
     blockBlue: '#4a90e2',
   },
 
-  selectColor: {
-    n1: '#ffdd0a',
-    n2: '#a9186d',
-    n3: '#34524f',
-    n4: '#274b90',
-    n5: '#c85b52',
-    n6: '#438ca9',
-    n7: '#fd9364',
-    n8: '#8971b3',
-  },
+  selectColor: [
+    '#ffdd0a',
+    '#a9186d',
+    '#34524f',
+    '#274b90',
+    '#c85b52',
+    '#438ca9',
+    '#fd9364',
+    '#8971b3',
+  ],
 
   Font: {
     EB: 'NanumSquareEB',

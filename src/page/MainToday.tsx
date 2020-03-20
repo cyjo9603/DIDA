@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Image} from 'react-native';
 import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
@@ -11,13 +11,19 @@ import {IRootState} from '../reducers/index';
 const MainToday = () => {
   const {firstDate} = useSelector((state: IRootState) => state.userReducer.userInfo!);
   const {selectColor} = useSelector((state: IRootState) => state.userReducer.userInfo!);
-  const currentDDay = Math.floor((new Date().getTime() - firstDate.getTime()) / (60 * 1000 * 60 * 24));
+  const currentDDay = useMemo(
+    () =>
+      Math.floor((new Date().getTime() - new Date(firstDate!).getTime()) / (1000 * 60 * 60 * 24)) +
+      1,
+    [firstDate],
+  );
+  console.log(new Date(firstDate!));
 
   return (
     <>
       {/* my color */}
       <Box marginTop={133.3333}>
-        <CurrentColor select={selectColor}></CurrentColor>
+        <CurrentColor select={selectColor!} />
       </Box>
 
       {/* show my day */}
@@ -39,7 +45,10 @@ const MainToday = () => {
 
       {/* write button */}
       <Button>
-        <Image source={require('../../image/drawable-xxxhdpi/bt_upload.png')} style={{width: 74.6666, height: 74.6666}}></Image>
+        <Image
+          source={require('../../image/drawable-xxxhdpi/bt_upload.png')}
+          style={{width: 74.6666, height: 74.6666}}
+        />
       </Button>
     </>
   );

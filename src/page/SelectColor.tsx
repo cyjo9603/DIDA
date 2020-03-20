@@ -19,15 +19,12 @@ type ColorKeys = keyof typeof theme.selectColor;
 const SelectColor = () => {
   const dispatch = useDispatch();
   const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
-  const [color, setColor] = useState<ColorKeys>('n1');
-
-  const getColor = (number: number) => `n${number + 1}` as ColorKeys;
+  const [color, setColor] = useState(1);
 
   const onSubmitInputColor = () => {
-    const colorId = parseInt(color.substr(1, 1));
-    console.log(colorId);
+    console.log(color);
     if (userCode) {
-      dispatch(addUserColorRequest(userCode, colorId));
+      dispatch(addUserColorRequest(userCode, color));
     }
   };
 
@@ -51,10 +48,11 @@ const SelectColor = () => {
             .fill(null)
             .map((v, i) => (
               <ColorContainer
+                key={`selectColorId_${i}`}
                 onPress={() => {
-                  setColor(getColor(i));
+                  setColor(i);
                 }}>
-                <ColorItem key={`colorId_${i}`} colorIndex={`n${i + 1}`} />
+                <ColorItem colorIndex={i} />
               </ColorContainer>
             ))}
         </Palette>
@@ -86,7 +84,7 @@ const ColorContainer = styled.TouchableOpacity`
 
 const ColorItem = styled.View<{
   theme: ThemeType;
-  colorIndex: string;
+  colorIndex: number;
 }>`
   width: 80px;
   height: 80px;
