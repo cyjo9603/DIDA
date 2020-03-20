@@ -6,23 +6,23 @@ import {memberAPI} from '../reqAddr';
 import {USER_INFO_CHECK_REQUEST, userInfoCheckSuccess, userInfoCheckFailure, IUserInfoCheckRequest} from '../reducers/user/userInfo';
 import {DELETE_USER_REQUEST} from '../reducers/user/deleteUser';
 import {PARTNER_CODE_CHECK_REQUEST, IPartnerCodeCheckRequest, partnerCodeCheckSuccess, partnerCodeCheckFailure} from '../reducers/user/partnerCheck';
-import IAddFirstDate, {ADD_FIRST_DATE, addFirstDateRequest} from '../reducers/user/addFirstDate';
+import IAddFirstDate, {ADD_FIRST_DATE} from '../reducers/user/addFirstDate';
 import IAddUserColor, {ADD_USER_COLOR} from '../reducers/user/addColor';
 import {USER_KEY} from '../storageKey';
 
 // API
 const signUpAPI = (code: string) => axios.post(memberAPI.add, {userCode: code, deviceInfo: 'android'});
 
-const infoUpdateAPI = (data: {userCode: string; firstDate?: string; colorCode?: number; partnerCode?: string}) => {
+const infoUpdateAPI = (data: {userCode: string; firstDate?: string; colorNum?: number; partnerCode?: string}) => {
   if (data.firstDate) {
     console.log('info update first date');
-    console.log(`userCode: ${data.userCode}, colorCode: ${data.firstDate}`);
+    console.log(`userCode: ${data.userCode}, firstDate: ${data.firstDate}`);
     return axios.post(memberAPI.update, {userCode: data.userCode, firstDate: data.firstDate});
   }
-  if (data.colorCode) {
+  if (data.colorNum) {
     console.log('info update color code');
-    console.log(`userCode: ${data.userCode}, colorCode: ${data.colorCode}`);
-    return axios.post(memberAPI.update, {userCode: data.userCode, colorCode: data.colorCode});
+    console.log(`userCode: ${data.userCode}, colorNum: ${data.colorNum}`);
+    return axios.post(memberAPI.update, {userCode: data.userCode, colorNum: data.colorNum});
   }
   if (data.partnerCode) {
     console.log('info update partner code');
@@ -34,13 +34,13 @@ const infoCheckAPI = (code: string) => axios.post(memberAPI.info, {userCode: cod
 
 const deleteUserAPI = () => axios.post(memberAPI.delete);
 
-const getColorAPI = () => axios.post(memberAPI.getColor);
+//const getColorAPI = () => axios.post(memberAPI.getColor);
 
 // add user color
 function* addUserColor(action: IAddUserColor) {
   try {
     console.log('addUserColor');
-    yield call(() => infoUpdateAPI({userCode: action.userCode, colorCode: action.colorId}));
+    yield call(() => infoUpdateAPI({userCode: action.userCode, colorNum: action.colorId}));
   } catch (e) {
     console.log('addUserColor error');
   }
