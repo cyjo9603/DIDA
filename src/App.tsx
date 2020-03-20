@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStore, compose, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import {StatusBar} from 'react-native';

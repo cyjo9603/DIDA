@@ -19,10 +19,7 @@ const WriteDiary = () => {
             D+123
           </TextEB>
           <Box marginLeft={8}>
-            <Image
-              source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')}
-              style={{width: 18.6666, height: 18.6666}}
-            />
+            <Image source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')} style={{width: 18.6666, height: 18.6666}} />
           </Box>
         </RowContainer>
       </Box>
@@ -39,29 +36,19 @@ const WriteDiary = () => {
         <HeartContainer>
           {/* heart level */}
           <TouchContainer>
-            <HeartImage
-              source={require('../../image/drawable-xxxhdpi/ic_heart_1_off.png')}
-            />
+            <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_1_off.png')} />
           </TouchContainer>
           <TouchContainer>
-            <HeartImage
-              source={require('../../image/drawable-xxxhdpi/ic_heart_2_off.png')}
-            />
+            <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_2_off.png')} />
           </TouchContainer>
           <TouchContainer>
-            <HeartImage
-              source={require('../../image/drawable-xxxhdpi/ic_heart_3_off.png')}
-            />
+            <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_3_off.png')} />
           </TouchContainer>
           <TouchContainer>
-            <HeartImage
-              source={require('../../image/drawable-xxxhdpi/ic_heart_4_off.png')}
-            />
+            <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_4_off.png')} />
           </TouchContainer>
           <TouchableOpacity>
-            <HeartImage
-              source={require('../../image/drawable-xxxhdpi/ic_heart_5_off.png')}
-            />
+            <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_5_off.png')} />
           </TouchableOpacity>
         </HeartContainer>
       </Box>
