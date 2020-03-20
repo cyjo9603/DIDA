@@ -23,11 +23,13 @@ interface IProps {
 
 const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
   const dispatch = useDispatch();
-  const {partnerFirstDate} = useSelector((state: IRootState) => state.userReducer.userSign);
   const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  const dayInnerText = useMemo(() => Math.floor((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24)) + 1, [date]);
+  const dayInnerText = useMemo(
+    () => Math.floor((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24)) + 1,
+    [date],
+  );
   const selectDate = useMemo(() => moment(date).format('YYYY.MM.DD'), [date]);
   const dayOfTheWeek = useMemo(() => moment(date).format('ddd'), [date]);
   const heartImage = useMemo(() => require('../../image/drawable-xxxhdpi/icon_heart.png'), []);
@@ -47,16 +49,11 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
 
   const onSubmitInputFirstDate = useCallback(() => {
     const selectDate = moment(date).format('YYYY-MM-DD');
-    console.log(`select: ${selectDate}, partner: ${partnerFirstDate}`);
-    if (partnerFirstDate && partnerFirstDate !== selectDate + 'T00:00:00.000Z' && partnerFirstDate !== null) {
-      console.log('diff date');
-    } else if (userCode) {
-      console.log('same date');
+    if (userCode) {
       dispatch(addFirstDateRequest(userCode, selectDate, navigation));
     }
-  }, [date, partnerFirstDate, userCode]);
+  }, [date, userCode]);
 
-  // () => navigation.navigate('SelectColor')
   return (
     <>
       <Container>
@@ -78,11 +75,22 @@ const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {
           </Box>
           <Heart source={heartImage} />
         </DayContainer>
-        {show && <DateTimePicker value={date} display="spinner" onChange={onChangeDate} maximumDate={new Date()} />}
+        {show && (
+          <DateTimePicker
+            value={date}
+            display="spinner"
+            onChange={onChangeDate}
+            maximumDate={new Date()}
+          />
+        )}
 
         {/* show date */}
         <Box marginTop={42.6666}>
-          <DateButton openDatePicker={showDatePicker} selectDate={selectDate} dayOfTheWeek={dayOfTheWeek} />
+          <DateButton
+            openDatePicker={showDatePicker}
+            selectDate={selectDate}
+            dayOfTheWeek={dayOfTheWeek}
+          />
         </Box>
       </Container>
       <View>
