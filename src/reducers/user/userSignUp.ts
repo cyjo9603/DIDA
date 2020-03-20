@@ -1,6 +1,6 @@
 export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST' as const;
 
-interface IUserSignUp {
+export interface UserSignUp {
   type: typeof USER_SIGNUP_REQUEST;
   data: {
     userCode: string;
@@ -9,7 +9,7 @@ interface IUserSignUp {
   };
 }
 
-export const userSignUp = (userCode: string, deviceToken: string): IUserSignUp => ({
+export const userSignUp = (userCode: string, deviceToken: string): UserSignUp => ({
   type: USER_SIGNUP_REQUEST,
   data: {
     userCode,
@@ -17,5 +17,3 @@ export const userSignUp = (userCode: string, deviceToken: string): IUserSignUp =
     deviceInfo: 'android',
   },
 });
-
-export default IUserSignUp;

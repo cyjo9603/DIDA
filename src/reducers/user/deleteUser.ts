@@ -1,11 +1,9 @@
 export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST' as const;
 
-interface IDeleteUser {
+export interface DeleteUser {
   type: typeof DELETE_USER_REQUEST;
 }
 
-export const deleteUser = () => ({
+export const deleteUser = (): DeleteUser => ({
   type: DELETE_USER_REQUEST,
 });
-
-export default IDeleteUser;

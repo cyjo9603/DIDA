@@ -4,44 +4,43 @@ export const USER_INFO_CHECK_SUCCESS = 'USER_INFO_CHECK_SUCCESS' as const;
 export const USER_INFO_CHECK_FAILURE = 'USER_INFO_CHECK_FAILURE' as const;
 
 // user info update
-interface IUserInfoUpdate {
+export interface UserInfoUpdate {
   type: typeof USER_INFO_UPDATE_REQUEST;
 }
 
 // user info check
-export interface IUserInfoCheckRequest {
+export interface UserInfoCheckRequest {
   type: typeof USER_INFO_CHECK_REQUEST;
   code: string;
 }
-interface IUserInfoCheckSuccess {
+export interface UserInfoCheckSuccess {
   type: typeof USER_INFO_CHECK_SUCCESS;
   data: {
     check: Boolean;
     code: string;
   };
 }
-interface IUserInfoCheckFailure {
+export interface UserInfoCheckFailure {
   type: typeof USER_INFO_CHECK_FAILURE;
 }
 
 // user info update
-export const userInfoUpdate = () => ({
+export const userInfoUpdate = (): UserInfoUpdate => ({
   type: USER_INFO_UPDATE_REQUEST,
 });
 
 // user info check
-export const userInfoCheckRequest = (code: string): IUserInfoCheckRequest => ({
+export const userInfoCheckRequest = (code: string): UserInfoCheckRequest => ({
   type: USER_INFO_CHECK_REQUEST,
   code,
 });
-export const userInfoCheckSuccess = (data: {check: Boolean; code: string}) => ({
+export const userInfoCheckSuccess = (data: {
+  check: Boolean;
+  code: string;
+}): UserInfoCheckSuccess => ({
   type: USER_INFO_CHECK_SUCCESS,
   data,
 });
-export const userInfoCheckFailure = () => ({
+export const userInfoCheckFailure = (): UserInfoCheckFailure => ({
   type: USER_INFO_CHECK_FAILURE,
 });
-
-type TUserInfo = IUserInfoUpdate | IUserInfoCheckRequest | IUserInfoCheckSuccess | IUserInfoCheckFailure;
-
-export default TUserInfo;

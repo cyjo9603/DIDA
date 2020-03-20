@@ -5,7 +5,7 @@ import {memberAPI} from '../../reqAddr';
 import {infoCheckAPI} from './infoCheck';
 import {
   PARTNER_CODE_CHECK_REQUEST,
-  IPartnerCodeCheckRequest,
+  PartnerCodeCheckRequest,
   partnerCodeCheckSuccess,
   partnerCodeCheckFailure,
 } from '../../reducers/user/partnerCheck';
@@ -32,7 +32,7 @@ export const infoUpdateAPI = (data: {
   }
 };
 
-function* partnerCheck(action: IPartnerCodeCheckRequest) {
+function* partnerCheck(action: PartnerCodeCheckRequest) {
   try {
     console.log('partnerCheck');
     const infoCheckValue = yield call(() => infoCheckAPI(action.data.partnerCode));

@@ -8,7 +8,7 @@ import {
   USER_INFO_CHECK_REQUEST,
   userInfoCheckSuccess,
   userInfoCheckFailure,
-  IUserInfoCheckRequest,
+  UserInfoCheckRequest,
 } from '../../reducers/user/userInfo';
 
 export const infoCheckAPI = (code: string) => axios.post(memberAPI.info, {userCode: code});
@@ -16,7 +16,7 @@ export const infoCheckAPI = (code: string) => axios.post(memberAPI.info, {userCo
 const signUpAPI = (code: string) =>
   axios.post(memberAPI.add, {userCode: code, deviceInfo: 'android'});
 
-function* infoCheck(action: IUserInfoCheckRequest) {
+function* infoCheck(action: UserInfoCheckRequest) {
   try {
     console.log('infoCheck');
     const infoCheckValue = yield call(() => infoCheckAPI(action.code));

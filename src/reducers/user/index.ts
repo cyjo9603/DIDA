@@ -13,7 +13,6 @@ import {
 } from './userInfo';
 import {DeleteUser, DELETE_USER_REQUEST} from './deleteUser';
 import {GetLocalData, GET_LOCAL_DATA} from './getLocalData';
-import {SetIsConnected, SET_ISCONNECTED} from './setIsConnected';
 import {
   PartnerCodeCheckRequest,
   PartnerCodeCheckSuccess,
@@ -50,6 +49,7 @@ export interface IUserState {
   userSign: {
     createCount: number;
     dateDiff?: boolean;
+    codeDiff?: boolean;
   };
 }
 
@@ -68,7 +68,6 @@ type UserReducerAction =
   | UserInfoUpdate
   | UserInfoCheckRequest
   | UserInfoCheckSuccess
-  | SetIsConnected
   | UserInfoCheckFailure
   | DeleteUser
   | GetLocalData
@@ -115,24 +114,26 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
 
       // get local data
       case GET_LOCAL_DATA: {
-        draft.userInfo.userCode = action.data.userCode;
+        draft.userInfo.userCode = action.userCode || 'NULL';
         break;
       }
 
       // partner code check
       case PARTNER_CODE_CHECK_REQUEST:
-      case PARTNER_CODE_CHECK_FAILURE:
         break;
-
-      case PARTNER_CODE_CHECK_SUCCESS: {
+      case PARTNER_CODE_CHECK_SUCCESS:
+        draft.userSign.codeDiff = false;
         draft.userInfo.partnerCode = action.code;
         break;
-      }
+      case PARTNER_CODE_CHECK_FAILURE:
+        draft.userSign.codeDiff = true;
+        break;
 
       // add firs date
       case ADD_FIRST_DATE_REQUEST:
         break;
       case ADD_FIRST_DATE_SUCCESS:
+        draft.userSign.dateDiff = false;
         draft.userInfo.firstDate = action.date;
         break;
       case ADD_FIRST_DATE_FAILURE:
@@ -147,12 +148,6 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
       case ADD_USER_COLOR_SUCCESS:
         draft.userInfo.selectColor = action.colorNum;
         break;
-
-      // set isConnected
-      case SET_ISCONNECTED: {
-        draft.isConnected = action.check;
-        break;
-      }
 
       default:
         break;

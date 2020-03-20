@@ -1,16 +1,11 @@
 export const GET_LOCAL_DATA = 'GET_LOCAL_DATA' as const;
 
-interface IGetLocalData {
+export interface GetLocalData {
   type: typeof GET_LOCAL_DATA;
-  data: {
-    userCode: string | null;
-    partnerCode: string | null;
-  };
+  userCode: string | null;
 }
 
-export const getLoaclData = (data: {userCode: string | null; partnerCode: string | null}) => ({
+export const getLoaclData = (userCode: string | null): GetLocalData => ({
   type: GET_LOCAL_DATA,
-  data,
+  userCode,
 });
-
-export default IGetLocalData;
