@@ -11,13 +11,13 @@ import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
 import BottomButton from '../component/BottomButton';
 import LineContainer, {Line} from '../component/LineContainer';
 
-import {StackParamList} from '../MainPage';
+import {SignStackParamList} from '../MainPage';
 import {userInfoCheckRequest} from '../reducers/user/userInfo';
 import {IRootState} from '../reducers/index';
 import {partnerCodeCheckRequest} from '../reducers/user/partnerCheck';
 
 interface IProps {
-  navigation: StackNavigationProp<StackParamList, 'CodeExchange'>;
+  navigation: StackNavigationProp<SignStackParamList, 'CodeExchange'>;
 }
 
 const getRandomCode = () => {

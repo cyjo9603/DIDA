@@ -13,12 +13,12 @@ import BottomButton from '../component/BottomButton';
 import LineContainer, {Line} from '../component/LineContainer';
 import DateButton from '../component/DateButton';
 
-import {StackParamList} from '../MainPage';
+import {SignStackParamList} from '../MainPage';
 import {IRootState} from '../reducers/index';
 import {addFirstDateRequest} from '../reducers/user/addFirstDate';
 
 interface IProps {
-  navigation: StackNavigationProp<StackParamList, 'SelectColor'>;
+  navigation: StackNavigationProp<SignStackParamList, 'SelectColor'>;
 }
 
 const SelectDate: React.FunctionComponent<IProps> = ({navigation}) => {

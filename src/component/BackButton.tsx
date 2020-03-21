@@ -11,7 +11,7 @@ const BackButton: FunctionComponent<IProps> = ({onPress}) => {
   const onPressFunc = useMemo(() => onPress, [onPress]);
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPressFunc}>
       <Back source={imgSource} />
     </TouchableOpacity>
   );

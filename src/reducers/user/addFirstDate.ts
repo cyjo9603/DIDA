@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../MainPage';
+import {SignStackParamList} from '../../MainPage';
 
 export const ADD_FIRST_DATE_REQUEST = 'ADD_FIRST_DATE_REQUEST' as const;
 export const ADD_FIRST_DATE_SUCCESS = 'ADD_FIRST_DATE_SUCCESS' as const;
@@ -9,7 +9,7 @@ export interface AddFirstDateRequest {
   type: typeof ADD_FIRST_DATE_REQUEST;
   userCode: string;
   date: string;
-  navigation: StackNavigationProp<StackParamList, 'SelectColor'>;
+  navigation: StackNavigationProp<SignStackParamList, 'SelectColor'>;
 }
 
 export interface AddFirstDateSuccess {
@@ -26,7 +26,7 @@ export interface AddFirstDateFailure {
 export const addFirstDateRequest = (
   userCode: string,
   date: string,
-  navigation: StackNavigationProp<StackParamList, 'SelectColor'>,
+  navigation: StackNavigationProp<SignStackParamList, 'SelectColor'>,
 ): AddFirstDateRequest => ({
   type: ADD_FIRST_DATE_REQUEST,
   userCode,

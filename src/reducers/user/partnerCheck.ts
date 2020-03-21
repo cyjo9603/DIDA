@@ -1,5 +1,5 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StackParamList} from '../../MainPage';
+import {SignStackParamList} from '../../MainPage';
 
 export const PARTNER_CODE_CHECK_REQUEST = 'PARTNER_CODE_CHECK_REQUEST' as const;
 export const PARTNER_CODE_CHECK_SUCCESS = 'PARTNER_CODE_CHECK_SUCCESS' as const;
@@ -10,7 +10,7 @@ export interface PartnerCodeCheckRequest {
   data: {
     userCode: string;
     partnerCode: string;
-    navigation: StackNavigationProp<StackParamList, 'CodeExchange'>;
+    navigation: StackNavigationProp<SignStackParamList, 'CodeExchange'>;
   };
 }
 
@@ -27,7 +27,7 @@ export interface PartnerCodeCheckFailure {
 export const partnerCodeCheckRequest = (
   userCode: string,
   partnerCode: string,
-  navigation: StackNavigationProp<StackParamList, 'CodeExchange'>,
+  navigation: StackNavigationProp<SignStackParamList, 'CodeExchange'>,
 ): PartnerCodeCheckRequest => ({
   type: PARTNER_CODE_CHECK_REQUEST,
   data: {
