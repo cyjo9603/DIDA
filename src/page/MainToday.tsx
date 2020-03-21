@@ -1,5 +1,4 @@
 import React, {useMemo, FunctionComponent} from 'react';
-import {Image} from 'react-native';
 import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -51,10 +50,7 @@ const MainToday: FunctionComponent<Props> = ({navigation}) => {
 
       {/* write button */}
       <Button onPress={() => navigation.navigate('WriteDiary')}>
-        <Image
-          source={require('../../image/drawable-xxxhdpi/bt_upload.png')}
-          style={{width: 74.6666, height: 74.6666}}
-        />
+        <ButtonImage source={require('../../image/drawable-xxxhdpi/bt_upload.png')} />
       </Button>
     </>
   );
@@ -68,5 +64,10 @@ const Section = styled.View`
 
 const Button = styled.TouchableOpacity`
   margin-top: 70px;
+`;
+
+const ButtonImage = styled.Image`
+  width: 74.6666px;
+  height: 74.6666px;
 `;
 export default MainToday;

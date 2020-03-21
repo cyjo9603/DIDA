@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity, Image} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 
 import {ThemeType} from '../theme';
@@ -8,6 +8,7 @@ import Box from '../commonComponent/Box';
 import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
 
 const DiaryItem = () => {
+  const imgAddr = require('../../image/drawable-xxxhdpi/bt_write.png');
   let test01 = 'yellow';
   let test02 = 'blue';
 
@@ -19,10 +20,7 @@ const DiaryItem = () => {
           1459
         </TextEB>
         <TouchableOpacity>
-          <Image
-            source={require('../../image/drawable-xxxhdpi/bt_write.png')}
-            style={{width: 37.3333, height: 37.3333}}
-          />
+          <WriteImage source={imgAddr} />
         </TouchableOpacity>
       </Top>
 
@@ -99,6 +97,11 @@ const HeartOn = styled.Image`
   right: 7px;
   width: 24px;
   height: 24px;
+`;
+
+const WriteImage = styled.Image`
+  width: 37.3333px;
+  height: 37.3333px;
 `;
 
 export default DiaryItem;

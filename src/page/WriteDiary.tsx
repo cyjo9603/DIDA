@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useMemo} from 'react';
-import {Image, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
@@ -37,10 +37,7 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
             D+{currentDDay}
           </TextEB>
           <Box marginLeft={8}>
-            <Image
-              source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')}
-              style={{width: 18.6666, height: 18.6666}}
-            />
+            <DropdownImage source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')} />
           </Box>
         </RowContainer>
       </Box>
@@ -106,6 +103,11 @@ const InputMessage = styled.TextInput<{theme: ThemeType}>`
   border-radius: 16px;
   padding: 34.6666px 32px;
   text-align-vertical: top;
+`;
+
+const DropdownImage = styled.Image`
+  width: 18.6666px;
+  height: 18.6666px;
 `;
 
 export default WriteDiary;
