@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {ThemeType} from '../theme';
 
@@ -8,10 +9,17 @@ import Container from '../component/Container';
 import RowContainer from '../commonComponent/RowContainer';
 import Box from '../commonComponent/Box';
 import TextB, {TextEB} from '../commonComponent/TextComponent';
+import StackHeader from '../component/StackHeader';
+import {MainStackParamList} from '../MainPage';
 
-const WriteDiary = () => {
+interface Props {
+  navigation: StackNavigationProp<MainStackParamList, 'WriteDiary'>;
+}
+
+const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
   return (
     <Container>
+      <StackHeader exitPage={navigation.goBack} submitPage={() => null} />
       {/* drop down menu */}
       <Box marginTop={45.3333}>
         <RowContainer>
@@ -19,7 +27,10 @@ const WriteDiary = () => {
             D+123
           </TextEB>
           <Box marginLeft={8}>
-            <Image source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')} style={{width: 18.6666, height: 18.6666}} />
+            <Image
+              source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')}
+              style={{width: 18.6666, height: 18.6666}}
+            />
           </Box>
         </RowContainer>
       </Box>

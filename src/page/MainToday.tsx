@@ -1,14 +1,20 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, FunctionComponent} from 'react';
 import {Image} from 'react-native';
 import styled from 'styled-components/native';
 import {useSelector} from 'react-redux';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import Box from '../commonComponent/Box';
 import {TextEB} from '../commonComponent/TextComponent';
 import CurrentColor from '../component/CurrentColor';
 import {IRootState} from '../reducers/index';
+import {MainStackParamList} from '../MainPage';
 
-const MainToday = () => {
+interface Props {
+  navigation: StackNavigationProp<MainStackParamList, 'Main'>;
+}
+
+const MainToday: FunctionComponent<Props> = ({navigation}) => {
   const {firstDate} = useSelector((state: IRootState) => state.userReducer.userInfo!);
   const {selectColor} = useSelector((state: IRootState) => state.userReducer.userInfo!);
   const currentDDay = useMemo(
@@ -44,7 +50,7 @@ const MainToday = () => {
       </Section>
 
       {/* write button */}
-      <Button>
+      <Button onPress={() => navigation.navigate('WriteDiary')}>
         <Image
           source={require('../../image/drawable-xxxhdpi/bt_upload.png')}
           style={{width: 74.6666, height: 74.6666}}

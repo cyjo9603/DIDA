@@ -7,12 +7,28 @@ import BackButton from './BackButton';
 
 interface IProps {
   goBack?: () => void;
+  exitPage?: () => void;
+  submitPage?: () => void;
 }
 
-const StackHeader: FunctionComponent<IProps> = ({goBack}) => {
+const StackHeader: FunctionComponent<IProps> = ({goBack, exitPage, submitPage}) => {
   return (
     <Header>
-      <Left>{goBack && <BackButton onPress={goBack} />}</Left>
+      {goBack && (
+        <Left>
+          <BackButton onPress={goBack} type="back" />
+        </Left>
+      )}
+      {exitPage && (
+        <Left>
+          <BackButton onPress={exitPage} type="exit" />
+        </Left>
+      )}
+      {submitPage && (
+        <Right>
+          <BackButton onPress={submitPage} type="submit" />
+        </Right>
+      )}
     </Header>
   );
 };
@@ -28,6 +44,10 @@ const Header = styled.View<{theme: ThemeType}>`
 
 const Left = styled.View`
   margin-left: 10.6666px;
+`;
+
+const Right = styled.View`
+  margin-right: 21.3333px;
 `;
 
 export default StackHeader;

@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, FunctionComponent} from 'react';
 import styled from 'styled-components/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-import Header from '../component/Header';
 import Container from '../component/Container';
 import MainTabItem from '../component/MainTabItem';
 import MainToday from './MainToday';
 import MainDiary from './MainDiary';
+import {MainStackParamList} from '../MainPage';
+import Header from '../component/Header';
 
-const Main = () => {
+interface Props {
+  navigation: StackNavigationProp<MainStackParamList, 'Main'>;
+}
+
+const Main: FunctionComponent<Props> = ({navigation}) => {
   const [state, setState] = useState('TODAY');
 
   const navTouch = (NavTitle: string) => setState(NavTitle);
@@ -19,7 +25,7 @@ const Main = () => {
         <MainTabItem title="TODAY" state={state} press={navTouch} />
         <MainTabItem title="DIARY" state={state} press={navTouch} />
       </Nav>
-      {state === 'TODAY' ? <MainToday /> : <MainDiary />}
+      {state === 'TODAY' ? <MainToday navigation={navigation} /> : <MainDiary />}
     </Container>
   );
 };
