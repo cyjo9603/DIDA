@@ -1,7 +1,8 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useMemo} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 import {ThemeType} from '../theme';
 
@@ -11,12 +12,21 @@ import Box from '../commonComponent/Box';
 import TextB, {TextEB} from '../commonComponent/TextComponent';
 import StackHeader from '../component/StackHeader';
 import {MainStackParamList} from '../MainPage';
+import {IRootState} from '../reducers/index';
 
 interface Props {
   navigation: StackNavigationProp<MainStackParamList, 'WriteDiary'>;
 }
 
 const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
+  const {firstDate} = useSelector((state: IRootState) => state.userReducer.userInfo!);
+  const currentDDay = useMemo(
+    () =>
+      Math.floor((new Date().getTime() - new Date(firstDate!).getTime()) / (1000 * 60 * 60 * 24)) +
+      1,
+    [firstDate],
+  );
+
   return (
     <Container>
       <StackHeader exitPage={navigation.goBack} submitPage={() => null} />
@@ -24,7 +34,7 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
       <Box marginTop={45.3333}>
         <RowContainer>
           <TextEB size={26.6666} color="main">
-            D+123
+            D+{currentDDay}
           </TextEB>
           <Box marginLeft={8}>
             <Image
