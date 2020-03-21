@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useMemo} from 'react';
+import React, {FunctionComponent, useMemo, useState, useCallback} from 'react';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -20,6 +20,8 @@ interface Props {
 
 const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
   const {firstDate} = useSelector((state: IRootState) => state.userReducer.userInfo!);
+  const [heartLevel, setHeartLevel] = useState<number | null>(null);
+  const [context, setContext] = useState('');
   const currentDDay = useMemo(
     () =>
       Math.floor((new Date().getTime() - new Date(firstDate!).getTime()) / (1000 * 60 * 60 * 24)) +
@@ -27,9 +29,25 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
     [firstDate],
   );
 
+  const onPressLevel = useCallback(
+    (level: number) => () => {
+      setHeartLevel(level);
+    },
+    [],
+  );
+
+  const onChangeInput = useCallback((e: string) => {
+    setContext(e);
+  }, []);
+
+  const onSubmit = () => {
+    console.log(heartLevel);
+    console.log(context);
+  };
+
   return (
     <Container>
-      <StackHeader exitPage={navigation.goBack} submitPage={() => null} />
+      <StackHeader exitPage={navigation.goBack} submitPage={onSubmit} />
       {/* drop down menu */}
       <Box marginTop={45.3333}>
         <RowContainer>
@@ -53,19 +71,19 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
       <Box marginTop={32}>
         <HeartContainer>
           {/* heart level */}
-          <TouchContainer>
+          <TouchContainer onPress={onPressLevel(1)}>
             <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_1_off.png')} />
           </TouchContainer>
-          <TouchContainer>
+          <TouchContainer onPress={onPressLevel(2)}>
             <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_2_off.png')} />
           </TouchContainer>
-          <TouchContainer>
+          <TouchContainer onPress={onPressLevel(3)}>
             <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_3_off.png')} />
           </TouchContainer>
-          <TouchContainer>
+          <TouchContainer onPress={onPressLevel(4)}>
             <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_4_off.png')} />
           </TouchContainer>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressLevel(5)}>
             <HeartImage source={require('../../image/drawable-xxxhdpi/ic_heart_5_off.png')} />
           </TouchableOpacity>
         </HeartContainer>
@@ -73,7 +91,7 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
 
       {/* input message */}
       <Box marginTop={58.6666}>
-        <InputMessage />
+        <InputMessage onChangeText={onChangeInput} />
       </Box>
     </Container>
   );
