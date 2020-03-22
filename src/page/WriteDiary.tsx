@@ -3,6 +3,7 @@ import {TouchableOpacity, Picker} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useSelector, useDispatch} from 'react-redux';
+import moment from 'moment';
 
 import {ThemeType} from '../theme';
 
@@ -49,7 +50,10 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
 
   const onSubmit = () => {
     if (heartLevel && contents.trim()) {
-      dispatch(writeDiaryRequest({score: heartLevel, contents}));
+      const diaryDate = moment()
+        .add(pickedDay - currentDDay, 'days')
+        .format('YYYY-MM-DD');
+      dispatch(writeDiaryRequest({score: heartLevel, contents, diaryDate}));
     } else {
       console.log('bad value');
     }

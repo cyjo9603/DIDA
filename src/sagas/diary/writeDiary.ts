@@ -1,5 +1,4 @@
 import {call, takeLatest, select, put} from 'redux-saga/effects';
-import moment from 'moment';
 
 import axios from 'axios';
 
@@ -27,7 +26,6 @@ function* writeDiary(action: WriteDiaryRequest) {
     const data: reqData = {
       ...action.data,
       userCode: userReducer.userInfo.userCode!,
-      diaryDate: moment(new Date()).format('YYYY-MM-DD'),
     };
     const result = yield call(writeDiaryAPI, data);
     if (result.success) {

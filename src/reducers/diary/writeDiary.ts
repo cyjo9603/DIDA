@@ -5,6 +5,7 @@ export const WRITE_DIARY_FAILURE = 'WRITE_DIARY_FAILURE' as const;
 interface reqData {
   score: number;
   contents: string;
+  diaryDate: string;
 }
 
 export interface WriteDiaryRequest {
