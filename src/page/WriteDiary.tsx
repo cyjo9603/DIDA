@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useMemo, useState, useCallback} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Picker} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useSelector, useDispatch} from 'react-redux';
@@ -30,6 +30,7 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
       1,
     [firstDate],
   );
+  const [pickedDay, setPickedDay] = useState(currentDDay);
 
   const onPressLevel = useCallback(
     (level: number) => () => {
@@ -40,6 +41,10 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
 
   const onChangeInput = useCallback((e: string) => {
     setContents(e);
+  }, []);
+
+  const onChangePicker = useCallback((e: string) => {
+    setPickedDay(Number(e));
   }, []);
 
   const onSubmit = () => {
@@ -57,10 +62,23 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
       <Box marginTop={45.3333}>
         <RowContainer>
           <TextEB size={26.6666} color="main">
-            D+{currentDDay}
+            D+{pickedDay}
           </TextEB>
           <Box marginLeft={8}>
-            <DropdownImage source={require('../../image/drawable-xxxhdpi/ic_dropdown.png')} />
+            <DayPicker
+              onValueChange={onChangePicker}
+              selectedValue={pickedDay}
+              accessibilityRole="button">
+              {Array(currentDDay)
+                .fill(null)
+                .map((v, i) => (
+                  <Picker.Item
+                    key={`writePicke_index_${currentDDay - i}`}
+                    label={String(currentDDay - i)}
+                    value={currentDDay - i}
+                  />
+                ))}
+            </DayPicker>
           </Box>
         </RowContainer>
       </Box>
@@ -128,9 +146,9 @@ const InputMessage = styled.TextInput<{theme: ThemeType}>`
   text-align-vertical: top;
 `;
 
-const DropdownImage = styled.Image`
-  width: 18.6666px;
-  height: 18.6666px;
+const DayPicker = styled(Picker)<{theme: ThemeType}>`
+  width: 30px;
+  height: 30px;
 `;
 
 export default WriteDiary;
