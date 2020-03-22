@@ -1,17 +1,44 @@
-import {call, takeLatest} from 'redux-saga/effects';
+import {call, takeLatest, select, put} from 'redux-saga/effects';
+import moment from 'moment';
 
 import axios from 'axios';
 
 import {diaryAPI} from '../../reqAddr';
-import {WRITE_DIARY_REQUEST} from '../../reducers/diary/writeDiary';
+import {IRootState} from '../../reducers/index';
+import {
+  WriteDiaryRequest,
+  WRITE_DIARY_REQUEST,
+  writeDiarySuccess,
+  writeDiaryFailure,
+} from '../../reducers/diary/writeDiary';
 
-const writeDiaryAPI = () => axios.post(diaryAPI.add);
+interface reqData {
+  userCode: string;
+  diaryDate: string;
+  score: number;
+  contents: string;
+}
 
-function* writeDiary() {
+const writeDiaryAPI = (data: reqData) => axios.post(diaryAPI.add, data);
+
+function* writeDiary(action: WriteDiaryRequest) {
   try {
-    yield call(writeDiaryAPI);
+    const {userReducer}: IRootState = yield select();
+    const data: reqData = {
+      ...action.data,
+      userCode: userReducer.userInfo.userCode!,
+      diaryDate: moment(new Date()).format('YYYY-MM-DD'),
+    };
+    const result = yield call(writeDiaryAPI, data);
+    if (result.success) {
+      yield put(writeDiarySuccess());
+    } else {
+      yield put(writeDiaryFailure('fail'));
+    }
+    console.log(result.data);
   } catch (e) {
     // error
+    yield put(writeDiaryFailure(e));
   }
 }
 

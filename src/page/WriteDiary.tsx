@@ -2,7 +2,7 @@ import React, {FunctionComponent, useMemo, useState, useCallback} from 'react';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import {ThemeType} from '../theme';
 
@@ -13,15 +13,17 @@ import TextB, {TextEB} from '../commonComponent/TextComponent';
 import StackHeader from '../component/StackHeader';
 import {MainStackParamList} from '../MainPage';
 import {IRootState} from '../reducers/index';
+import {writeDiaryRequest} from '../reducers/diary/writeDiary';
 
 interface Props {
   navigation: StackNavigationProp<MainStackParamList, 'WriteDiary'>;
 }
 
 const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
+  const dispatch = useDispatch();
   const {firstDate} = useSelector((state: IRootState) => state.userReducer.userInfo!);
   const [heartLevel, setHeartLevel] = useState<number | null>(null);
-  const [context, setContext] = useState('');
+  const [contents, setContents] = useState('');
   const currentDDay = useMemo(
     () =>
       Math.floor((new Date().getTime() - new Date(firstDate!).getTime()) / (1000 * 60 * 60 * 24)) +
@@ -37,12 +39,15 @@ const WriteDiary: FunctionComponent<Props> = ({navigation}) => {
   );
 
   const onChangeInput = useCallback((e: string) => {
-    setContext(e);
+    setContents(e);
   }, []);
 
   const onSubmit = () => {
-    console.log(heartLevel);
-    console.log(context);
+    if (heartLevel && contents.trim()) {
+      dispatch(writeDiaryRequest({score: heartLevel, contents}));
+    } else {
+      console.log('bad value');
+    }
   };
 
   return (
