@@ -43,6 +43,7 @@ import {
   ADD_USER_COLOR_SUCCESS,
   ADD_USER_COLOR_FAILURE,
 } from './addColor';
+import {SetPartnerInfo, SET_PARTNER_INFO} from './setPartnerInfo';
 
 export interface IUserState {
   isConnected: boolean | null;
@@ -51,6 +52,10 @@ export interface IUserState {
     partnerCode?: string;
     selectColor?: number;
     firstDate?: string;
+  };
+  partnerInfo: null | {
+    userCode: string;
+    selectColor: number;
   };
   userSign: {
     createCount: number;
@@ -64,6 +69,7 @@ const userInitialState: IUserState = {
   userInfo: {
     userCode: null,
   },
+  partnerInfo: null,
   userSign: {
     createCount: 0,
   },
@@ -86,7 +92,8 @@ type UserReducerAction =
   | AddFirstDateFailure
   | AddUserColorRequest
   | AddUserColorSuccess
-  | AddUserColorFailure;
+  | AddUserColorFailure
+  | SetPartnerInfo;
 
 const userReducer = (state: IUserState = userInitialState, action: UserReducerAction) => {
   return produce(state, (draft: IUserState) => {
@@ -157,9 +164,16 @@ const userReducer = (state: IUserState = userInitialState, action: UserReducerAc
       case ADD_USER_COLOR_REQUEST:
       case ADD_USER_COLOR_FAILURE:
         break;
-
       case ADD_USER_COLOR_SUCCESS:
         draft.userInfo.selectColor = action.colorNum;
+        break;
+
+      // set partner info
+      case SET_PARTNER_INFO:
+        draft.partnerInfo = {
+          userCode: action.partnerCode,
+          selectColor: action.selectColor,
+        };
         break;
 
       default:

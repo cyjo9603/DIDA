@@ -1,7 +1,9 @@
 import {call, takeLatest, put} from 'redux-saga/effects';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {memberAPI} from '../../reqAddr';
+import {PARTNER_KEY} from '../../storageKey';
 import {infoCheckAPI} from './infoCheck';
 import {
   PARTNER_CODE_CHECK_REQUEST,
@@ -40,6 +42,7 @@ function* partnerCheck(action: PartnerCodeCheckRequest) {
     if (check) {
       console.log('partner check true');
       const partnerFirstDate = infoCheckValue.data.userInfo[0].firstDate;
+      yield AsyncStorage.setItem(PARTNER_KEY, action.data.partnerCode);
       yield call(() => infoUpdateAPI(action.data));
       yield put(partnerCodeCheckSuccess(action.data.partnerCode, partnerFirstDate));
       yield call(() => action.data.navigation.navigate('SelectDate'));

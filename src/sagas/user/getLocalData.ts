@@ -7,12 +7,21 @@ import {
   getLocalDataSuccess,
   getLocalDataFailure,
 } from '../../reducers/user/getLocalData';
+import {setPartnerInfo} from '../../reducers/user/setPartnerInfo';
 
 function* getLocalData(action: GetLocalDataRequest) {
   try {
     if (action.userCode) {
-      const result = yield call(infoCheckAPI, action.userCode);
-      const userInfo = result.data.userInfo[0];
+      const userResult = yield call(infoCheckAPI, action.userCode);
+      let partnerResult;
+      if (action.partnerCode) {
+        partnerResult = yield call(infoCheckAPI, action.partnerCode);
+      }
+      const userInfo = userResult.data.userInfo[0];
+      const partnerInfo = partnerResult.data.userInfo[0];
+      if (partnerInfo) {
+        yield put(setPartnerInfo(partnerInfo.userCode, partnerInfo.colorNum));
+      }
       if (userInfo) {
         const data = {
           userCode: userInfo.userCode,

@@ -12,6 +12,7 @@ interface Data {
 export interface GetLocalDataRequest {
   type: typeof GET_LOCALDATA_REQUEST;
   userCode: string | null;
+  partnerCode: string | null;
 }
 
 export interface GetLocalDataSuccess {
@@ -25,9 +26,13 @@ export interface GetLocalDataFailure {
   userCode?: string;
 }
 
-export const getLocalDataRequest = (userCode: string | null): GetLocalDataRequest => ({
+export const getLocalDataRequest = (
+  userCode: string | null,
+  partnerCode: string | null,
+): GetLocalDataRequest => ({
   type: GET_LOCALDATA_REQUEST,
   userCode,
+  partnerCode,
 });
 
 export const getLocalDataSuccess = (data: Data): GetLocalDataSuccess => ({
