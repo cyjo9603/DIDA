@@ -15,11 +15,8 @@ const getDiaryListAPI = (userCode: string) => axios.post(diaryAPI.getList, {user
 function* getDiaryList() {
   try {
     const {userReducer}: IRootState = yield select();
-    const userResult = yield call(getDiaryListAPI, userReducer.userInfo.userCode!);
-    const partnerResult = yield call(getDiaryListAPI, userReducer.userInfo.partnerCode!);
-    console.log(userReducer.userInfo.partnerCode);
-    console.log(partnerResult.data);
-    yield put(getDiaryListSuccess(userResult.data.diaryList, partnerResult.data.diaryList));
+    const result = yield call(getDiaryListAPI, userReducer.userInfo.userCode!);
+    yield put(getDiaryListSuccess(result.data.diaryList));
   } catch (e) {
     // error
     yield put(getDiaryListFailure(e));

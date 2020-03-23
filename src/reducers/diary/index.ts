@@ -33,16 +33,19 @@ import {
   GET_DIARY_LIST_FAILURE,
 } from './getDiaryList';
 
-interface DiaryContents {
-  diaryNumber: number;
+export interface DiaryContents {
+  diaryNo: number;
+  userCode: string;
+  writeDiary: string;
   contents: string;
+  diaryDate: string;
   score: number;
+  isDeleteYn: number;
 }
 
 interface DiaryData {
-  writeDate: Date;
-  userDiary: DiaryContents;
-  partnerDiary: DiaryContents;
+  writeDate: string;
+  contents: DiaryContents[];
 }
 
 export interface DiaryState {
@@ -68,7 +71,7 @@ type DairyReducerAction =
   | GetDiaryListFailure;
 
 const diaryReducer = (state: DiaryState = diaryInitailState, action: DairyReducerAction) => {
-  return produce(state, (/*draft: DiaryState*/) => {
+  return produce(state, (draft: DiaryState) => {
     switch (action.type) {
       // write diary
       case WRITE_DIARY_REQUEST:
@@ -90,8 +93,20 @@ const diaryReducer = (state: DiaryState = diaryInitailState, action: DairyReduce
 
       // get diary list
       case GET_DIARY_LIST_REQUEST:
-      case GET_DIARY_LIST_SUCCESS:
       case GET_DIARY_LIST_FAILURE:
+        break;
+      case GET_DIARY_LIST_SUCCESS:
+        action.userData.forEach(v => {
+          let index = draft.diaryLists.findIndex(i => i.writeDate === v.diaryDate);
+          if (index === -1) {
+            draft.diaryLists.push({
+              writeDate: v.diaryDate,
+              contents: [],
+            });
+            index = draft.diaryLists.length - 1;
+          }
+          draft.diaryLists[index].contents.push(v);
+        });
         break;
 
       default:
