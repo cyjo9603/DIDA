@@ -1,4 +1,4 @@
-import {call, takeLatest, put} from 'redux-saga/effects';
+import {call, takeLatest, put, select} from 'redux-saga/effects';
 
 import axios from 'axios';
 
@@ -8,16 +8,21 @@ import {
   getDiaryListSuccess,
   getDiaryListFailure,
 } from '../../reducers/diary/getDiaryList';
+import {IRootState} from '../../reducers/index';
 
-const getDiaryListAPI = () => axios.post(diaryAPI.getList);
+const getDiaryListAPI = (userCode: string) => axios.post(diaryAPI.getList, {userCode});
 
 function* getDiaryList() {
   try {
-    yield call(getDiaryListAPI);
-    yield put(getDiaryListSuccess());
+    const {userReducer}: IRootState = yield select();
+    const userResult = yield call(getDiaryListAPI, userReducer.userInfo.userCode!);
+    const partnerResult = yield call(getDiaryListAPI, userReducer.userInfo.partnerCode!);
+    console.log(userReducer.userInfo.partnerCode);
+    console.log(partnerResult.data);
+    yield put(getDiaryListSuccess(userResult.data.diaryList, partnerResult.data.diaryList));
   } catch (e) {
     // error
-    yield put(getDiaryListFailure());
+    yield put(getDiaryListFailure(e));
   }
 }
 
