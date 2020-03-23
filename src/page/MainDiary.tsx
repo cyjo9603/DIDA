@@ -1,13 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
 
 import DiaryItem from '../component/DiaryItem';
 import BoundaryLine from '../component/BoundaryLine';
+import {IRootState} from '../reducers/index';
+import {getDiaryListRequest} from '../reducers/diary/getDiaryList';
+import {DiaryData} from '../reducers/diary/index';
 
 const MainDiary = () => {
+  const dispatch = useDispatch();
+  const {diaryLists} = useSelector((state: IRootState) => state.diaryReducer);
+
+  console.log('####');
+  console.log(diaryLists);
+
+  useEffect(() => {
+    dispatch(getDiaryListRequest());
+  }, []);
+
   return (
     <Container>
-      {Array(5)
+      {/* {Array(5)
         .fill(null)
         .map((v, i) => {
           return i !== 0 ? (
@@ -18,7 +32,17 @@ const MainDiary = () => {
           ) : (
             <DiaryItem />
           );
-        })}
+        })} */}
+      {diaryLists.map((v: DiaryData, i: number) => {
+        return i !== 0 ? (
+          <>
+            <BoundaryLine />
+            <DiaryItem diaryData={v} />
+          </>
+        ) : (
+          <DiaryItem diaryData={v} />
+        );
+      })}
     </Container>
   );
 };

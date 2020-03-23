@@ -1,23 +1,43 @@
-import React from 'react';
+import React, {FunctionComponent, useMemo} from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
+import {useSelector} from 'react-redux';
 
 import {ThemeType} from '../theme';
 
 import Box from '../commonComponent/Box';
 import TextB, {TextEB, TextR} from '../commonComponent/TextComponent';
+import {DiaryData} from '../reducers/diary/index';
+import {IRootState} from '../reducers/index';
 
-const DiaryItem = () => {
+interface Props {
+  diaryData: DiaryData;
+}
+
+const DiaryItem: FunctionComponent<Props> = ({diaryData}) => {
+  const {firstDate} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const {selectColor} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const {userCode} = useSelector((state: IRootState) => state.userReducer.userInfo);
+  const partnerColor = useSelector(
+    (state: IRootState) => state.userReducer.partnerInfo!.selectColor,
+  );
   const imgAddr = require('../../image/drawable-xxxhdpi/bt_write.png');
+  const currentDDay = useMemo(
+    () =>
+      Math.floor(
+        (new Date(diaryData.writeDate).getTime() - new Date(firstDate!).getTime()) /
+          (1000 * 60 * 60 * 24),
+      ),
+    [diaryData.writeDate],
+  );
   let test01 = 'yellow';
-  let test02 = 'blue';
 
   return (
     <View>
       {/* header */}
       <Top>
         <TextEB size={32} color="main">
-          1459
+          {currentDDay}
         </TextEB>
         <TouchableOpacity>
           <WriteImage source={imgAddr} />
@@ -33,28 +53,19 @@ const DiaryItem = () => {
         </Box>
 
         {/* line contents */}
-        <LineContainer>
-          <Block writer={test01} />
-          <Contents size={20} color="darkGray_01">
-            오늘 같이 본 영화는 너무 재밌었어!
-          </Contents>
-          <HeartOn
-            source={require(`../../image/drawable-xxxhdpi/ic_heart_${
-              test01 === 'yellow' ? '5' : '3'
-            }_on.png`)}
-          />
-        </LineContainer>
-        <LineContainer>
-          <Block writer={test02} />
-          <Contents size={20} color="darkGray_01">
-            앞으론 겨울왕국 같은건 보지말자 ㅠ 노잼
-          </Contents>
-          <HeartOn
-            source={require(`../../image/drawable-xxxhdpi/ic_heart_${
-              test02 === 'yellow' ? '5' : '3'
-            }_on.png`)}
-          />
-        </LineContainer>
+        {diaryData.contents.map(v => (
+          <LineContainer key={`diaryNo_${v.diaryNo}`}>
+            <Block writer={v.userCode === userCode ? selectColor! : partnerColor!} />
+            <Contents size={20} color="darkGray_01">
+              {v.contents}
+            </Contents>
+            <HeartOn
+              source={require(`../../image/drawable-xxxhdpi/ic_heart_${
+                test01 === 'yellow' ? '5' : '3'
+              }_on.png`)}
+            />
+          </LineContainer>
+        ))}
       </Box>
     </View>
   );
@@ -72,11 +83,8 @@ const LineContainer = styled.View`
   margin-top: 10.6666px;
 `;
 
-const Block = styled.View<{theme: ThemeType; writer: string}>`
-  background-color: ${props =>
-    props.writer === 'yellow'
-      ? props.theme.itemColor.blockYellow
-      : props.theme.itemColor.blockBlue};
+const Block = styled.View<{theme: ThemeType; writer: number}>`
+  background-color: ${props => props.theme.selectColor[props.writer]};
   position: absolute;
   width: 10.6666px;
   height: 10.6666px;

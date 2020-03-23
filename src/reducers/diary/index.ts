@@ -43,7 +43,7 @@ export interface DiaryContents {
   isDeleteYn: number;
 }
 
-interface DiaryData {
+export interface DiaryData {
   writeDate: string;
   contents: DiaryContents[];
 }
@@ -96,6 +96,7 @@ const diaryReducer = (state: DiaryState = diaryInitailState, action: DairyReduce
       case GET_DIARY_LIST_FAILURE:
         break;
       case GET_DIARY_LIST_SUCCESS:
+        draft.diaryLists = [];
         action.userData.forEach(v => {
           let index = draft.diaryLists.findIndex(i => i.writeDate === v.diaryDate);
           if (index === -1) {
