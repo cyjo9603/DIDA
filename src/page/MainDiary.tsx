@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
+import {View} from 'react-native';
 
 import DiaryItem from '../component/DiaryItem';
 import BoundaryLine from '../component/BoundaryLine';
@@ -21,28 +22,12 @@ const MainDiary = () => {
 
   return (
     <Container>
-      {/* {Array(5)
-        .fill(null)
-        .map((v, i) => {
-          return i !== 0 ? (
-            <>
-              <BoundaryLine />
-              <DiaryItem />
-            </>
-          ) : (
-            <DiaryItem />
-          );
-        })} */}
-      {diaryLists.map((v: DiaryData, i: number) => {
-        return i !== 0 ? (
-          <>
-            <BoundaryLine />
-            <DiaryItem diaryData={v} />
-          </>
-        ) : (
+      {diaryLists.map((v: DiaryData, i: number) => (
+        <View key={`diary_day_list_${v.writeDate}`}>
+          {i !== 0 ? <BoundaryLine /> : null}
           <DiaryItem diaryData={v} />
-        );
-      })}
+        </View>
+      ))}
     </Container>
   );
 };
